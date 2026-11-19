@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CARE CORPS! Episode 1 — The Rooming Mission</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Anton&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{--ink:#161016;--paper:#f3e7c9;--paper2:#e8d6a8;--red:#c62828;--red2:#8e1b1b;--gold:#f2b90c;--navy:#123a63;--blue:#1c6fb8;--green:#2e7d32;--shadow:rgba(0,0,0,.35)}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:'Nunito',system-ui,Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 20% 15%, rgba(0,0,0,.05) 0 2px, transparent 2px) 0 0/7px 7px,radial-gradient(circle at 60% 60%, rgba(0,0,0,.04) 0 2px, transparent 2px) 3px 3px/7px 7px,linear-gradient(135deg,#f7ecd2,#e9d6a6);min-height:100vh}
+.wrap{max-width:1080px;margin:0 auto;padding:16px}
+h1,h2,h3,.pow,.rank-btn,.mission-title,.logo,.mode-title{font-family:'Bangers',Impact,'Arial Black',sans-serif;letter-spacing:.5px}
+.num{font-family:'Nunito','Trebuchet MS',Arial,sans-serif !important;font-weight:800 !important;font-style:normal !important;letter-spacing:0 !important}
+.logo-line{text-align:center;margin:6px 0 2px}
+.logo{font-size:clamp(38px,8vw,84px);color:var(--red);line-height:.9;text-shadow:3px 3px 0 var(--ink),6px 6px 0 var(--gold);transform:rotate(-2deg)}
+.subtitle{font-family:'Anton',sans-serif;text-align:center;color:var(--navy);font-size:clamp(14px,2.6vw,22px);letter-spacing:2px;text-transform:uppercase;margin:0 0 4px}
+.tagline{text-align:center;font-style:italic;color:var(--red2);font-weight:800;margin:0 0 14px}
+.btn{font-family:'Anton',sans-serif;letter-spacing:1px;cursor:pointer;border:4px solid var(--ink);background:var(--red);color:#fff;padding:14px 20px;border-radius:12px;font-size:20px;box-shadow:4px 4px 0 var(--ink);transition:transform .05s, box-shadow .05s;text-transform:uppercase}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn.gold{background:var(--gold);color:var(--ink)}.btn.navy{background:var(--navy)}.btn.green{background:var(--green)}.btn.ghost{background:#fff;color:var(--ink)}
+.btn.small{font-size:15px;padding:9px 13px;border-width:3px;box-shadow:3px 3px 0 var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.3)}.btn.big{font-size:24px;padding:18px 26px}
+.panel{background:var(--paper);border:4px solid var(--ink);border-radius:14px;box-shadow:6px 6px 0 var(--shadow);padding:18px;margin:14px 0}
+.hidden{display:none!important}
+.topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--navy);border:4px solid var(--ink);border-radius:12px;padding:10px 14px;box-shadow:4px 4px 0 var(--shadow);color:#fff;margin-bottom:12px}
+.topbar .who{font-family:'Bangers';font-size:24px;letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.emblem-chip{width:34px;height:34px;border-radius:50%;border:3px solid #fff;display:grid;place-items:center;font-size:18px;background:#fff}
+.topbar .actions{display:flex;gap:8px;flex-wrap:wrap}
+.citywrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.meter{flex:1;min-width:220px;height:26px;background:#fff;border:4px solid var(--ink);border-radius:20px;overflow:hidden;position:relative}
+.meter > i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--green),var(--green) 12px,#3a9a3f 12px,#3a9a3f 24px);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.meter b{position:absolute;inset:0;display:grid;place-items:center;font-family:'Nunito';font-weight:800;color:var(--ink);font-size:15px;letter-spacing:1px}
+.heroes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.hero-card{border:4px solid var(--ink);border-radius:14px;padding:12px;cursor:pointer;position:relative;box-shadow:4px 4px 0 var(--shadow);background:#fff;text-align:center;transition:transform .06s}
+.hero-card:hover{transform:translate(-2px,-2px)}
+.hero-card .em{width:60px;height:60px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;font-size:30px;border:4px solid var(--ink)}
+.hero-card .cn{font-family:'Bangers';font-size:22px;line-height:1;margin-bottom:2px}
+.hero-card .rn{font-family:'Anton';font-size:12px;letter-spacing:1px;color:var(--navy);text-transform:uppercase}
+.hero-card.add{display:grid;place-items:center;background:var(--paper2);border-style:dashed;min-height:150px}
+.hero-card .del{position:absolute;top:-10px;right:-10px;background:var(--red);color:#fff;border:3px solid var(--ink);border-radius:50%;width:26px;height:26px;font-weight:800;cursor:pointer;line-height:1}
+.villain{border:4px solid var(--ink);border-radius:14px;margin:14px 0;box-shadow:5px 5px 0 var(--shadow);overflow:hidden;background:#fff}
+.villain .vhead{display:flex;align-items:center;gap:12px;padding:12px 14px;color:#fff;cursor:pointer}
+.villain .vemoji{font-size:34px;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.4))}
+.villain .vname{font-family:'Bangers';font-size:26px;letter-spacing:1px;line-height:1}
+.villain .vscheme{font-size:13px;font-weight:700;opacity:.95}
+.villain .vstatus{margin-left:auto;font-family:'Anton';font-size:13px;letter-spacing:1px;background:rgba(0,0,0,.25);padding:6px 10px;border-radius:20px;border:2px solid rgba(255,255,255,.5);white-space:nowrap}
+.villain.contained .vstatus{background:var(--green);border-color:#fff}
+.missions{padding:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.mcard{border:3px solid var(--ink);border-radius:12px;padding:10px 12px;background:var(--paper);cursor:pointer;box-shadow:3px 3px 0 var(--shadow);transition:transform .06s;position:relative}
+.mcard:hover{transform:translate(-2px,-2px)}
+.mcard .mtop{display:flex;align-items:center;gap:8px}.mcard .mem{font-size:24px}.mcard .mname{font-family:'Anton';font-size:15px;letter-spacing:.5px;line-height:1.05}
+.mcard .mpow{font-size:12px;color:var(--navy);font-weight:800;margin-top:2px}
+.badge{display:inline-block;font-family:'Anton';font-size:11px;letter-spacing:1px;padding:3px 8px;border-radius:20px;border:2px solid var(--ink);margin-top:8px;text-transform:uppercase}
+.b-locked{background:#ddd}.b-rookie{background:#cfe3f5}.b-sidekick{background:#ffe08a}.b-hero{background:#9be7a0}.b-legend{background:linear-gradient(90deg,#ffd24a,#ff8a3d);color:#3a1d00}
+.always-tag{position:absolute;top:-9px;right:8px;background:var(--red);color:#fff;font-family:'Anton';font-size:10px;letter-spacing:1px;padding:2px 7px;border-radius:12px;border:2px solid var(--ink)}
+.stars{position:absolute;top:8px;left:10px;font-size:12px;letter-spacing:-1px}
+.safebadge{position:absolute;top:8px;right:10px;font-size:15px}
+.detail .dhead{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.detail .dem{font-size:52px;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.35))}
+.mission-title{font-size:34px;color:var(--red);line-height:.95;text-shadow:2px 2px 0 var(--ink)}
+.dpow{font-family:'Anton';color:var(--navy);letter-spacing:1px;text-transform:uppercase}
+.vs{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border-radius:20px;padding:6px 12px;font-family:'Bangers';letter-spacing:1px;margin-top:6px}
+.patient{display:flex;gap:14px;align-items:center;border:4px solid var(--ink);border-radius:14px;background:#fff;padding:12px 14px;box-shadow:4px 4px 0 var(--shadow);margin:14px 0}
+.patient .pem{font-size:46px;flex-shrink:0}.patient .pn{font-family:'Bangers';font-size:22px;line-height:1}.patient .pd{font-weight:700}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:8px}
+.mode-card{border:4px solid var(--ink);border-radius:16px;background:#fff;padding:16px;text-align:center;cursor:pointer;box-shadow:5px 5px 0 var(--shadow);transition:transform .07s;position:relative}
+.mode-card:hover{transform:translate(-2px,-2px)}.mode-card.locked{opacity:.55;cursor:not-allowed;filter:grayscale(.4)}
+.mode-card .mi{font-size:44px}.mode-title{font-size:23px;line-height:1;margin:6px 0 2px}.mode-card .md{font-weight:700;font-size:13px;color:#444}
+.mode-card .done{position:absolute;top:-12px;right:-12px;background:var(--green);color:#fff;border:3px solid var(--ink);border-radius:50%;width:34px;height:34px;display:grid;place-items:center;font-size:18px;box-shadow:2px 2px 0 var(--ink)}
+.mode-card .lockicon{position:absolute;top:8px;right:10px;font-size:20px}
+.mode-w{border-color:var(--blue)}.mode-g{border-color:var(--gold)}.mode-s{border-color:var(--green)}.mode-l{border-color:#fb5607}.mode-safe{border-color:#d61f69}
+.battle-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:6px 0 12px}
+.vfight{font-size:40px;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.35));transition:transform .2s}
+.vfight.hit{animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px) rotate(-4deg)}75%{transform:translateX(6px) rotate(4deg)}}
+.hpwrap{flex:1;min-width:180px}.hpbar{height:22px;background:#fff;border:4px solid var(--ink);border-radius:20px;overflow:hidden;position:relative}
+.hpbar > i{display:block;height:100%;width:100%;background:repeating-linear-gradient(45deg,var(--red),var(--red) 10px,#e04b4b 10px,#e04b4b 20px);transition:width .4s}
+.hplabel{font-family:'Anton';font-size:12px;letter-spacing:1px;color:var(--red2)}
+.watch-step{border:4px solid var(--ink);border-radius:16px;background:#fff;box-shadow:5px 5px 0 var(--shadow);padding:20px;text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.watch-num{width:60px;height:60px;margin:0 auto;background:var(--red);color:#fff;border:4px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:30px}
+.media-stage{margin:0 auto;max-width:420px;width:100%}
+.media-stage img,.media-stage video{width:100%;border:4px solid var(--ink);border-radius:12px;box-shadow:3px 3px 0 var(--shadow);background:#000;display:block}
+.watch-emoji{font-size:64px}
+.watch-text{font-size:22px;font-weight:800;line-height:1.2}
+.watch-why{background:#e7f1fa;border:3px solid var(--blue);border-radius:12px;padding:10px 12px;font-weight:700;margin-top:6px}
+.progress-dots{display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap}
+.progress-dots span{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);background:#fff}.progress-dots span.on{background:var(--gold)}
+.slots{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.slot{min-height:52px;border:3px dashed var(--ink);border-radius:12px;background:rgba(255,255,255,.5);display:flex;align-items:center;gap:10px;padding:8px 10px;position:relative}
+.slot .snum{width:32px;height:32px;flex-shrink:0;background:var(--navy);color:#fff;border:3px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:16px}
+.slot.filled{border-style:solid;background:#9be7a0}.slot .stext{font-weight:800}
+.bank{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.step-card{border:3px solid var(--ink);border-radius:12px;background:#fff;padding:12px 14px;font-weight:800;cursor:pointer;box-shadow:3px 3px 0 var(--shadow);transition:transform .06s;display:flex;align-items:center;gap:10px}
+.step-card:hover{transform:translate(-2px,-2px)}.step-card .sem{font-size:22px}
+.step-card.hintpulse{animation:pulse 1s infinite;border-color:var(--gold);box-shadow:0 0 0 4px rgba(242,185,12,.5)}
+.step-card.wrong{animation:nope .4s}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+@keyframes nope{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.nova-bubble{display:flex;gap:10px;align-items:flex-start;background:#fff;border:4px solid var(--navy);border-radius:14px;padding:12px 14px;box-shadow:4px 4px 0 var(--shadow);margin:12px 0}
+.nova-bubble .nface{font-size:34px;flex-shrink:0}.nova-bubble .ntext{font-weight:800}.nova-bubble .ntext b{color:var(--navy)}
+.section-h{font-family:'Bangers';font-size:24px;letter-spacing:1px;color:var(--navy);margin:16px 0 6px;display:flex;align-items:center;gap:8px}
+.callout{border:3px solid var(--blue);background:#e7f1fa;border-radius:12px;padding:10px 14px}.callout.warn{border-color:var(--gold);background:#fff3d6}
+.rank-track-mini{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.rchip{font-family:'Anton';font-size:11px;letter-spacing:1px;padding:4px 8px;border-radius:20px;border:2px solid var(--ink);background:#eee;text-transform:uppercase}.rchip.on{background:var(--green);color:#fff}
+.rchip .num{font-size:12px}
+.fx{position:fixed;inset:0;display:grid;place-items:center;pointer-events:none;z-index:60}
+.fx .pow{font-size:clamp(60px,16vw,150px);color:var(--gold);text-shadow:4px 4px 0 var(--ink),8px 8px 0 var(--red);transform:scale(0) rotate(-12deg);animation:popfx 1.1s ease forwards}
+.fx .sub{font-family:'Anton';color:#fff;background:var(--ink);padding:8px 16px;border-radius:10px;margin-top:10px;letter-spacing:2px;opacity:0;animation:fadein .5s .25s ease forwards;text-transform:uppercase}
+.fx-lines{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,0) 0deg 8deg, rgba(255,255,255,.35) 8deg 9deg);mix-blend-mode:overlay;opacity:0;animation:fadein .2s ease forwards, fadeout .5s .7s ease forwards}
+@keyframes popfx{0%{transform:scale(0) rotate(-12deg)}55%{transform:scale(1.15) rotate(4deg)}75%{transform:scale(.95) rotate(-2deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes fadein{to{opacity:1}}@keyframes fadeout{to{opacity:0}}
+.stamp{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-16deg) scale(0);z-index:61;font-family:'Bangers';font-size:clamp(40px,10vw,90px);color:var(--red);border:8px double var(--red);padding:10px 26px;border-radius:12px;background:rgba(255,255,255,.9);animation:slam .8s cubic-bezier(.2,1.4,.3,1) forwards;pointer-events:none}
+@keyframes slam{0%{transform:translate(-50%,-50%) rotate(-16deg) scale(2.4);opacity:0}60%{opacity:1}70%{transform:translate(-50%,-50%) rotate(-16deg) scale(.9)}100%{transform:translate(-50%,-50%) rotate(-16deg) scale(1);opacity:1}}
+.trophy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.mug{border:4px solid var(--ink);border-radius:12px;background:#fff;padding:10px;text-align:center;box-shadow:4px 4px 0 var(--shadow);position:relative}
+.mug .mem{font-size:40px;filter:grayscale(1) contrast(1.1)}.mug.caught .mem{filter:none}
+.mug .mn{font-family:'Bangers';font-size:18px;line-height:1;margin-top:4px}
+.mug .st{font-family:'Anton';font-size:11px;letter-spacing:1px;margin-top:6px;padding:3px 8px;border-radius:20px;display:inline-block;border:2px solid var(--ink)}
+.mug .st.free{background:#ffd7d7}.mug .st.caught{background:var(--green);color:#fff}
+.mug .bars{position:absolute;inset:0;border-radius:8px;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 26px,rgba(0,0,0,.55) 26px 32px);opacity:0;transition:opacity .3s}.mug.caught .bars{opacity:1}
+.deceptor-panel{background:linear-gradient(135deg,#1c1c28,#3a2a4a);color:#fff;border-color:#000}.deceptor-panel .mission-title{color:var(--gold)}
+.report-box{border:4px dashed var(--navy);border-radius:14px;background:#fff;padding:14px;margin-top:12px}
+.vcode{font-family:'Nunito';font-weight:800;font-size:30px;letter-spacing:3px;color:var(--navy);background:var(--gold);border:3px solid var(--ink);border-radius:10px;padding:4px 14px;display:inline-block}
+.hero-hint{background:#fff8e6;border:3px solid var(--gold);border-radius:12px;padding:10px 14px;font-weight:700;font-size:13px;color:#7a5a00;margin:10px 0}
+.footy{text-align:center;color:#6b5a3a;font-size:12px;margin:20px 0 8px;font-weight:700}
+label.fld{display:block;font-family:'Anton';letter-spacing:1px;color:var(--navy);text-transform:uppercase;font-size:13px;margin:10px 0 4px}
+input[type=text]{width:100%;padding:12px;border:4px solid var(--ink);border-radius:10px;font-size:16px;font-family:'Nunito';font-weight:700}
+.swatch-row,.emoji-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.swatch{width:40px;height:40px;border-radius:50%;border:4px solid var(--ink);cursor:pointer}.swatch.sel{outline:4px solid var(--gold);outline-offset:2px}
+.emoji-pick{width:46px;height:46px;font-size:24px;border:4px solid var(--ink);border-radius:10px;background:#fff;cursor:pointer;display:grid;place-items:center}.emoji-pick.sel{background:var(--gold)}
+
+#bossPanel{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section id="screen-intro">
+    <div class="logo-line"><div class="logo">CARE CORPS!</div></div>
+    <div class="subtitle">Episode 1 • The Rooming Mission</div>
+    <div class="panel">
+      <h1 style="color:var(--navy);margin-top:0">Meet Nurse Nova</h1>
+      <p>The Room Raider has mixed up the clinic. Nurse Nova needs your help to get each patient ready for their visit. At work, this is called <strong>rooming</strong>.</p>
+      <p>This is a practice game. You’ll get the room ready, check the patient’s name and date of birth, and check <strong>vital signs</strong> like pulse and blood pressure.</p>
+      <p>Pick or make a hero. Then pick a skill on the Mission Board. Play the stages in order.</p>
+      <ol>
+        <li><strong>Watch.</strong> Read each step with Nurse Nova.</li>
+        <li><strong>Try With Help.</strong> Put the steps in order. Ask for a hint if you get stuck.</li>
+        <li><strong>Safety Check.</strong> Spot the step that could cause harm.</li>
+        <li><strong>Do It on Your Own.</strong> Put the steps in order without hints.</li>
+        <li><strong>Become a Legend.</strong> Pick a rule you would teach a new hero.</li>
+      </ol>
+      <button class="btn green big" onclick="show('screen-select')">Next: Choose Your Hero</button>
+    </div>
+  </section>
+
+  <section id="screen-select" class="hidden">
+    <div class="logo-line"><div class="logo">CARE CORPS!</div></div>
+    <div class="subtitle">Episode 1 • The Rooming Mission</div>
+    <div style="text-align:center;margin:12px 0"><button class="btn small ghost" onclick="show('screen-intro')">How to Play</button></div>
+    <div class="panel">
+      <h2 style="margin:.2em 0;color:var(--navy)">🚀 Choose Your Hero</h2>
+      <p style="font-weight:700;margin:.2em 0 1em">Pick your hero to keep playing. Tap New Hero if this is your first time.</p>
+      <div class="heroes-grid" id="heroesGrid"></div>
+    </div>
+    <div class="panel">
+      <h3 style="margin:.2em 0;color:var(--navy)">💾 Backup &amp; Restore (whole app)</h3>
+      <p style="font-weight:700;margin:.2em 0 .8em">Save ALL heroes on this device to a file (in case the browser gets frisky or you switch computers), or load them back.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn small navy" onclick="exportData()">⬇️ Export Full Backup</button>
+        <button class="btn small ghost" onclick="document.getElementById('importFile').click()">⬆️ Import Full Backup</button>
+        <input type="file" id="importFile" accept="application/json" class="hidden" onchange="importData(event)">
+      </div>
+      <div class="hero-hint">💡 <b>Tip:</b> Heroes save automatically on this device. Always open the game from the <b>same file in the same folder</b> so your heroes are always here. Export a backup before switching computers.</div>
+    </div>
+    <div class="footy">Care Corps • Mayo Clinic Project SEARCH • Built with Brandon &amp; Steph • v5.0 — Rooming Mission</div>
+  </section>
+
+  <section id="screen-new" class="hidden">
+    <div class="logo-line"><div class="logo" style="font-size:48px">NEW HERO!</div></div>
+    <div class="panel">
+      <label class="fld">Hero Name</label>
+      <input type="text" id="newName" placeholder="e.g. Captain Kindness, The Blur, Nova Jr." maxlength="22">
+      <label class="fld">Pick a Color</label><div class="swatch-row" id="swatchRow"></div>
+      <label class="fld">Pick an Icon</label><div class="emoji-row" id="emojiRow"></div>
+      <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+        <button class="btn green" onclick="createHero()">Next: Mission Board</button>
+        <button class="btn ghost small" onclick="goSelect()">Cancel</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-board" class="hidden">
+    <div class="topbar">
+      <div class="who"><span class="emblem-chip" id="tbEmblem">🦸</span><span id="tbName">Hero</span></div>
+      <div class="actions">
+        <button class="btn small ghost" onclick="openTrophy()">🏆 Bad Guys Caught</button>
+        <button class="btn small gold" onclick="toggleSound()" id="sndBtn">🔊 Sound On</button>
+        <button class="btn small navy" onclick="goSelect()">↩ Switch Hero</button>
+      </div>
+    </div>
+    <div class="panel" style="padding:14px">
+      <div class="citywrap">
+        <div style="font-family:'Bangers';font-size:26px;color:var(--navy);white-space:nowrap">🏙️ City Saved</div>
+        <div class="meter"><i id="cityFill"></i><b id="cityPct">0%</b></div>
+      </div>
+      <div class="nova-bubble" style="margin-top:12px"><div class="nface">🚀</div><div class="ntext"><b>Nurse Nova:</b> <span id="novaLine"></span></div></div>
+      <div style="text-align:center;margin-top:12px"><button class="btn green" onclick="openReport()">📤 Send My Progress to Teacher</button></div>
+    </div>
+    <div id="villainList"></div>
+    <div class="panel deceptor-panel" id="bossPanel">
+      <div class="detail dhead"><div class="dem">🎭</div>
+        <div><div class="mission-title">THE DECEPTOR</div>
+        <div style="font-weight:800" id="bossStatus">Locked — master every skill to unmask him.</div></div></div>
+      <div class="meter" style="margin-top:12px"><i id="bossFill" style="background:repeating-linear-gradient(45deg,#ffb703,#ffb703 12px,#fb5607 12px,#fb5607 24px)"></i><b id="bossPct">0 / 30 skills mastered</b></div>
+      <div style="margin-top:12px;text-align:center"><button class="btn gold" id="unmaskBtn" disabled onclick="unmaskDeceptor()">Next: Unmask the Deceptor</button></div>
+    </div>
+    <div class="footy">Care Corps • Progress saves automatically on this device • Export a backup to be safe</div>
+  </section>
+
+  <section id="screen-report" class="hidden">
+    <div class="topbar"><div class="who">📤 <span>Send Progress</span></div>
+      <div class="actions"><button class="btn small navy" onclick="backToBoard()">↩ Mission Board</button></div></div>
+    <div class="panel" id="reportBody"></div>
+  </section>
+
+  <section id="screen-hub" class="hidden">
+    <div class="topbar">
+      <div class="who"><span class="emblem-chip" id="hbEmblem">🦸</span><span id="hbHero">Hero</span></div>
+      <div class="actions"><button class="btn small navy" onclick="backToBoard()">↩ Mission Board</button></div>
+    </div>
+    <div class="panel detail" id="hubHead"></div>
+  </section>
+
+  <section id="screen-play" class="hidden">
+    <div class="topbar">
+      <div class="who"><span class="emblem-chip" id="plEmblem">🦸</span><span id="plHero">Hero</span></div>
+      <div class="actions"><button class="btn small ghost" onclick="quitToHub()">✕ Exit Mission</button></div>
+    </div>
+    <div class="panel" id="playArea"></div>
+  </section>
+
+  <section id="screen-trophy" class="hidden">
+    <div class="topbar"><div class="who">🏆 <span>Bad Guys Caught</span></div>
+      <div class="actions"><button class="btn small navy" onclick="backToBoard()">↩ Mission Board</button></div></div>
+    <div class="panel"><p style="font-weight:800;margin:.2em 0 1em">Reach <b>Hero</b> on each skill to catch the Room Raider! 🔒</p>
+      <div class="trophy-grid" id="trophyGrid"></div></div>
+  </section>
+
+</div>
+<div id="fxLayer"></div>
+<script>
+/* CARE CORPS DATA MODEL — v5.0 ROOMING MISSION expansion */
+var CARE_CORPS_DATA = {
+  ranks: [
+    { key: "rookie",  label: "Rookie",  blurb: "Watched the steps", icon: "1" },
+    { key: "sidekick",label: "Sidekick",blurb: "Tried it with help", icon: "2" },
+    { key: "hero",    label: "Hero",    blurb: "Did it on your own", icon: "3" },
+    { key: "legend",  label: "Legend",  blurb: "Ready to teach it", icon: "★" }
+  ],
+  villains: [
+    { id:"germinator", name:"The Germinator", emoji:"🦠", color:"#37a35b",
+      scheme:"Spreads invisible doom on every surface of the ward!",
+      defeat:"Clean hands and careful cleaning wipe him out.",
+      skills:["handwashing","catheter","perineal","bedpan"] },
+    { id:"fall", name:"Professor Fall", emoji:"🩹", color:"#e0872b",
+      scheme:"Lurks by every bedside, waiting to trip the unwary!",
+      defeat:"Gait belts, locked brakes and safe transfers foil him.",
+      skills:["wheelchair","ambulation"] },
+    { id:"chaos", name:"Captain Chaos", emoji:"🌪️", color:"#8e5cd9",
+      scheme:"Leaves rooms messy, unsafe, and call-lights out of reach!",
+      defeat:"Calm, respectful, orderly care sends him packing.",
+      skills:["indirect","dressing"] },
+    { id:"spoils", name:"Sir Spoils-A-Lot", emoji:"🦷", color:"#c94f7c",
+      scheme:"Rots mouths and grimes up everything he touches!",
+      defeat:"Fresh, clean hygiene care is his doom.",
+      skills:["mouth","denture","handnail","foot","bedbath"] },
+    { id:"freezer", name:"The Freezer", emoji:"🧊", color:"#2f9fd0",
+      scheme:"Freezes joints solid with cold neglect!",
+      defeat:"Gentle Range of Motion melts his icy grip.",
+      skills:["romlower","romelbow","romshoulder"] },
+    { id:"pressure", name:"Madame Pressure", emoji:"🛏️", color:"#b0453b",
+      scheme:"Sneaks in bed sores whenever no one turns the patient!",
+      defeat:"Turning and clean, dry linens crush her plans.",
+      skills:["position","occupiedbed"] },
+    { id:"phantom", name:"The Parched Phantom", emoji:"🍽️", color:"#5a7bbd",
+      scheme:"Starves and dehydrates the helpless!",
+      defeat:"Patient, careful feeding banishes the phantom.",
+      skills:["feeding"] },
+    { id:"rooming", name:"The Room Raider", emoji:"🩺", color:"#0d9488",
+      scheme:"Mixes up the chart, the tools, and the vital signs before each visit!",
+      defeat:"A complete Rooming Mission catches every clue and gets the patient safely ready for the clinical team.",
+      skills:["roomprep","patientid","verifyinfo","temperature","pulse","respirations","pulseox","bloodpressure","documentation","roomclose"] },
+    { id:"vitals", name:"Dr. Vitals-Void", emoji:"📉", color:"#4b5563",
+      scheme:"Hides the body's warning signs so danger sneaks by!",
+      defeat:"Measuring vitals drags the truth into the light.",
+      skills:["pulse","respirations","drainage"] }
+  ],
+  finalBoss: { id:"deceptor", name:"The Deceptor", emoji:"🎭", color:"#1c1c28",
+    scheme:"The mastermind! He hides patient decline behind every disguise.",
+    defeat:"Master ALL the Care Corps skills to unmask him and save the ward forever!" },
+  skills: {
+    roomprep: { name:"Get the Room Ready", power:"Ready Room", emoji:"🧰",
+      what:"Getting yourself, the workspace, and equipment ready before rooming begins.", why:"Starting clean and prepared prevents delays, contamination, and missing equipment.",
+      supplies:["Rooming supplies","Disinfectant wipe","Hand hygiene supplies"],
+      steps:["Check which tools you need.", "Check that tools you use again are clean and ready.", "Clear the space where you will work.", "Clean your hands before you start."],
+      whys:["Get what you need before the visit.", "Clean tools help stop the spread of germs.", "A clear space is safer to work in.", "Clean hands help keep the patient safe."],
+      remember:["Get the room ready before you bring the patient in.", "Check that tools are clean before you use them.", "Clean your hands before you start."], traps:["Start before you have the tools you need.", "Use a tool without checking that it is clean."] },
+    patientid: { name:"Check Patient ID", power:"Identity Lock", emoji:"🪪",
+      what:"WHO is this? Patient Identification confirms that you have the RIGHT PERSON before you review information, take vitals, or continue rooming.", why:"This is a safety check. Two identifiers help prevent care, results, or information from being connected to the wrong person. FIRST WHO, THEN WHAT.",
+      supplies:["Simulated chart or patient card"],
+      steps:["Say your name and tell the patient what you will do.", "Ask the patient to say their full name. Let them say it first.", "Ask the patient to say their date of birth.", "Check that both answers match the patient chart.", "If either answer does not match, stop and ask staff for help."],
+      whys:["The patient needs to know who you are.", "Let the patient give the answer.", "The date of birth is your second ID check.", "Both must match so you know you have the right chart.", "You may have the wrong chart or the wrong person. Get help before you check other details or take vital signs."],
+      remember:["First check who the patient is. Then check their details.", "Ask for both full name and date of birth.", "If the name or date of birth does not match, stop and ask staff."], traps:["Ask “Are you Jordan Lee?” and take yes as the answer.", "Keep going when the name matches but the date of birth does not."] },
+    verifyinfo: { name:"Check Patient Details", power:"Chart Check", emoji:"📋",
+      what:"WHAT is true about this patient? AFTER Patient ID confirms the RIGHT PERSON, Patient Information checks whether THAT PERSON'S information is right and current.", why:"Phone numbers, pharmacies, contact information, and other rooming information can change. Your job is to notice a difference and flag it — not guess or silently rewrite the chart. FIRST WHO, THEN WHAT.",
+      supplies:["Simulated chart","Rooming form","Pen"],
+      steps:["Check that the full name and date of birth both match the chart.", "Ask the questions on your list, such as what phone number or pharmacy the patient uses.", "Check each answer against the chart.", "Keep going if the answers match.", "Mark any detail that does not match.", "Tell staff what changed. Let staff decide how to update the chart."],
+      whys:["First make sure you have the right person.", "The patient can tell you what they use now.", "Check the chart to spot a change.", "If the detail matches, you can move on.", "A phone number or pharmacy can change even when you have the right person.", "Staff can follow the clinic’s rules for changes."],
+      remember:["Check the patient’s name and date of birth first.", "Mark changed contact or pharmacy details and tell staff.", "Let staff handle edits to the chart."], traps:["Skip the name and date of birth check. Ask about the pharmacy first.", "Change the phone number in the chart on your own."] },
+    temperature: { name:"Take a Temperature", power:"Temp Scan", emoji:"🌡️",
+      what:"Measuring and recording the patient's temperature using the device taught for the rooming workflow.", why:"Temperature can reveal a change in the patient's condition and must be measured and recorded accurately.",
+      supplies:["Digital thermometer","Cleaning supplies","Rooming form"],
+      steps:["Clean your hands and get the thermometer ready.", "Tell the patient you will take their temperature.", "Use the thermometer the way you were taught.", "Wait for the thermometer to finish.", "Read the screen and write the exact number.", "Clean the tools you use again."],
+      whys:["Start with clean hands and tools.", "Tell the patient what to expect.", "Each tool has its own steps.", "The number may change until the tool is done.", "The team needs the number from the screen.", "Leave the tools clean for the next patient."],
+      remember:["Use the thermometer the way you were taught.", "Write the exact temperature from the screen.", "Clean the thermometer after use if it is used again."], traps:["Guess the temperature because the patient feels warm.", "Round the temperature to make it easy to recall."] },
+    pulseox: { name:"Check Oxygen (Pulse Ox)", power:"Oxygen Vision", emoji:"🫧",
+      what:"Using a pulse oximeter to obtain the displayed oxygen saturation and pulse reading.", why:"The reading gives the clinical team information about oxygen saturation; your job is to obtain and report the displayed value accurately.",
+      supplies:["Pulse oximeter","Cleaning supplies","Rooming form"],
+      steps:["Clean your hands. Check that the pulse oximeter is clean.", "Explain the check and place the clip on the finger as taught.", "Keep the hand still and wait for the number to hold steady.", "Find the oxygen number on the screen.", "Write the exact oxygen number.", "If the game marks the number REPORT, tell staff.", "Clean the clip after use."],
+      whys:["Clean hands and tools help stop germs from spreading.", "The clip needs to sit right to get a good reading.", "Movement can make the number jump.", "The oxygen number and pulse are two different numbers.", "The care team needs the number you saw.", "Staff will decide what to do next.", "Leave it clean for the next patient."],
+      remember:["Keep the hand still until the pulse ox number holds steady.", "Tell staff if the pulse ox result is marked REPORT.", "Use the oxygen number shown on the pulse ox."], traps:["Write down the first number while it still flashes.", "Change the oxygen number because it looks odd."] },
+    bloodpressure: { name:"Check Blood Pressure", power:"Pressure Patrol", emoji:"💪",
+      what:"Using the pilot's automatic blood-pressure cuff to obtain and record a blood-pressure reading.", why:"Blood pressure is part of the rooming picture. Correct cuff use and accurate documentation help the clinical team use the result.",
+      supplies:["Automatic blood-pressure cuff","Rooming form","Cleaning supplies"],
+      steps:["Clean your hands and get the blood pressure cuff ready.", "Have the patient sit and rest as you were taught.", "Put the right size cuff on the bare upper arm as taught.", "Ask the patient to stay still. Start the machine.", "Wait for the machine to finish.", "Write both blood pressure numbers just as they are shown.", "If the game marks the result REPORT, tell staff.", "Clean the tools you use again."],
+      whys:["Start clean.", "How the patient sits can change the reading.", "Cuff size and fit can change the reading.", "Moving can change the reading.", "Wait for the final numbers.", "The team needs both numbers.", "Staff will decide what to do next.", "Clean tools help keep the next patient safe."],
+      remember:["Use the right size cuff on the bare upper arm.", "Wait for the blood pressure machine to finish.", "Write both blood pressure numbers exactly as shown."], traps:["Put the cuff over thick clothes.", "Guess one of the blood pressure numbers."] },
+    documentation: { name:"Fill In the Rooming Form", power:"Truth Ink", emoji:"✍️",
+      what:"Recording verified information and vital results in the correct places on the simulated rooming form.", why:"The next person needs an accurate record of what actually happened. If you did not observe it, do not invent it.",
+      supplies:["Simulated rooming form","Pen","Simulated chart"],
+      steps:["Put each result in the right box.", "Copy each number just as you saw it.", "Mark which details match and which do not.", "Note what you need to tell staff.", "Check for blank boxes, numbers in the wrong spot, or guesses."],
+      whys:["Staff need to find each result.", "A change to a number can change what it means.", "Staff need to know if a detail did not match.", "A note helps you remember what to tell staff.", "A last check can catch a mistake."],
+      remember:["Put the right result in the right box on the form.", "Mark any changes you need to tell staff about.", "Fill in the form with facts you checked."], traps:["Fill a blank box with a guess.", "Write the pulse in the blood pressure box."] },
+    roomclose: { name:"Finish the Visit Setup", power:"Clean Exit", emoji:"✅",
+      what:"Finishing the interaction, leaving the workspace ready, and passing important information to staff.", why:"Rooming is not finished when the last vital is taken. A safe handoff and clean workspace complete the job.",
+      supplies:["Cleaning supplies","Completed rooming form"],
+      steps:["Tell the patient you are done getting them ready.", "Check that the patient is set for the next part of the visit.", "Clean the tools and the space you used.", "Clean your hands.", "Tell staff about any details that did not match and any results marked REPORT.", "Make sure the care team has the finished rooming form."],
+      whys:["The patient needs to know what comes next.", "Make sure the patient is safe and ready.", "Leave a clean space for the next patient.", "Clean hands help stop the spread of germs.", "Staff need to hear what you found.", "The care team needs the form for the next part of the visit."],
+      remember:["Tell the patient when the rooming steps are done.", "Tell staff what you marked before you leave.", "Get the finished rooming form to the care team."], traps:["Walk out as soon as you write the last number.", "Find a change in the chart and leave without telling staff."] },
+    handwashing: { name:"Handwashing", power:"Germ Guardian", emoji:"🧼", always:true,
+      what:"Washing your hands the right way so germs do not spread.",
+      why:"Clean hands keep the resident and you from getting sick. Scored on every test.",
+      supplies:["Sink with running water","Soap","Paper towels","Waste basket"],
+      steps:["Turn on the water. Wet your hands and wrists.","Put soap on your hands.","Rub all parts for at least 20 seconds — palms, backs, between fingers, under nails.","Keep fingertips pointed down toward the sink.","Rinse well, fingertips down.","Dry with a clean paper towel.","Use a dry paper towel to turn off the faucet.","Throw the paper towels in the waste basket."],
+      whys:["Wet hands first so the soap can lather up and do its job.","Soap kills germs and bacteria.","Singing Happy Birthday twice gives you time to scrub every bit.","You don't want dirty water dripping down your arms.","Get all of the now-dirty soap suds off of your hands.","A used towel just puts germs back onto your hands — use a clean one.","There are germs on the faucet from when you turned it on with dirty hands… ick.","Keep the space clean and tidy for the next person."],
+      remember:["Don't touch the inside of the sink — it's dirty.","Scrub a full 20 seconds (sing Happy Birthday twice).","Turn the faucet off with a paper towel, not your clean hand."],
+      traps:["Dry your clean hands on your dirty uniform.","Turn off the faucet with your bare clean hand."] },
+    indirect: { name:"Indirect Care (Good Care Habits)", power:"The Corps Code", emoji:"🛡️", always:true,
+      what:"The polite, safe, and respectful habits you use with every resident.",
+      why:"Shows respect and keeps the resident safe. Watched for during every skill.",
+      supplies:["No special supplies — these are habits you always use."],
+      steps:["Knock, say hello, use the resident's name, and say who you are.","Tell the resident what you'll do before you do it.","Ask about what they like during care.","Wash hands and use gloves when needed.","Ask if they're comfortable or need anything.","Protect privacy — close doors and curtains.","Put the bed in its lowest position.","Put the call light where they can reach it."],
+      whys:["Nobody trusts a stranger.","Surprises can be scary.","When you ask what they like, they feel respected — not just handled.","Safety first!","Checking in tells them they matter to you.","Privacy and respect are important.","A low bed means a shorter, safer fall if they get up.","They need a way to call for help when you're gone."],
+      remember:["Privacy, safety, and respect come first — every time.","Put the call light where they can reach it before you leave.","Lower the bed to its lowest safe position when done."],
+      traps:["Start care without telling the resident what you'll do.","Leave the call light out of the resident's reach."] },
+    mouth: { name:"Mouth Care (Brushing Teeth)", power:"Fresh Strike", emoji:"🪥",
+      what:"Helping clean the resident's teeth, gums, and tongue.",
+      why:"Keeps the mouth healthy and prevents infection.",
+      supplies:["Gloves","Toothbrush","Toothpaste","Cup of water","Spit basin","Towel"],
+      steps:["Wash hands and put on gloves.","Raise the head of the bed so they sit up.","Put a towel across the chest.","Wet the toothbrush and add toothpaste.","Gently brush teeth, gums, and tongue.","Have them rinse and spit into the basin.","Give fresh water for each rinse — never reuse it.","Wipe the mouth with the towel.","Clean up, remove gloves, wash hands."],
+      whys:["Clean hands and gloves keep germs away from a sensitive spot.","You don't want them to choke.","Make spills easy to clean up.","Clean teeth are an important part of health.","Bacteria hide all over, but the mouth is a sensitive place.","Patients should not swallow toothpaste.","Used rinse water is full of germs — fresh water keeps it clean.","Clean up any spit or toothpaste on their face.","Finishing clean protects you and the next patient."],
+      remember:["Sit them up so they don't choke.","Be gentle around the gums.","Never reuse the same rinse water."],
+      traps:["Brush the teeth while the resident lies flat.","Scrub the gums hard until they bleed."] },
+    handnail: { name:"Hand and Nail Care", power:"Clean Sweep", emoji:"💅",
+      what:"Cleaning the resident's hands and nails.",
+      why:"Keeps hands clean and stops germs hiding under nails.",
+      supplies:["Gloves","Basin of warm water","Soap","Nail file (orangewood stick)","Towel","Lotion"],
+      steps:["Wash hands and put on gloves.","Check the water is warm, not hot.","Soak the fingers in warm water.","Wash the hands with soap and rinse.","Gently clean under each nail.","Dry well, especially between fingers.","Put lotion on the hands.","Clean up, remove gloves, wash hands."],
+      whys:["Clean hands and gloves stop germs from spreading.","Cold water doesn't kill germs, but hot water burns.","The water helps break up dirt.","Soap kills germs.","Under the nails is very sensitive.","Places like this can hide moisture.","Lotion keeps their skin soft so it doesn't dry out and crack.","Finishing clean keeps everyone safe."],
+      remember:["Always check water temperature first.","Dry carefully between the fingers.","Be gentle under the nails."],
+      traps:["Soak the hands in hot, scalding water.","Jab hard under the nails with a sharp metal tool."] },
+    denture: { name:"Denture Care", power:"Pearly Power", emoji:"😁",
+      what:"Cleaning the resident's false teeth (dentures).",
+      why:"Keeps dentures clean and the mouth healthy.",
+      supplies:["Gloves","Denture brush","Denture cleaner","Denture cup","Towel","Basin"],
+      steps:["Wash hands and put on gloves.","Line the sink with a towel and add water.","Rinse dentures under cool running water.","Brush all sides with cleaner.","Rinse again under cool water.","Store in a cup with cool water or return to mouth.","Clean up, remove gloves, wash hands."],
+      whys:["Clean hands and gloves keep the dentures sanitary.","A towel and water cushion the dentures if they slip.","Hot water can warp dentures.","Food and germs hide on every side, so brush them all.","Hot water can warp dentures.","Bacteria love dry teeth and dentures. Gross.","Finishing clean keeps everyone safe."],
+      remember:["Use cool water — hot warps dentures.","Line the sink so they don't break if dropped.","Hold firmly; they're slippery."],
+      traps:["Rinse the dentures in hot water.","Clean them over a hard, empty sink."] },
+    feeding: { name:"Feeding a Resident", power:"Nourish Blast", emoji:"🥄",
+      what:"Helping a resident who can't feed themselves eat a meal.",
+      why:"Makes sure they get food safely without choking.",
+      supplies:["Gloves (if needed)","Food tray","Napkin","Spoon","Drink with straw"],
+      steps:["Wash your hands.","Sit them up straight before eating.","Tell them what food is on the tray.","Put a napkin under their chin.","Offer small bites, one at a time.","Give a drink between bites.","Go slow — let them chew and swallow.","Wipe their mouth when done and wash hands."],
+      whys:["Clean hands keep germs out of their food.","You don't want them to choke.","Always tell the patient what you are doing.","Make spills easy to clean up.","Small bites are easier to chew and swallow safely.","A drink helps wash the food down.","Make sure they swallow before the next bite.","Clean up and wash to keep things tidy and safe."],
+      remember:["Always sit them upright to prevent choking.","Small bites, never rush.","Make sure they swallow before the next bite."],
+      traps:["Feed big bites quickly while they lie flat.","Push the next bite before they swallow."] },
+    pulse: { name:"Check Pulse (Heart Rate)", power:"Heartbeat Sense", emoji:"💓",
+      what:"Counting heartbeats in one minute at the wrist.",
+      why:"The pulse tells us about the resident's health.",
+      supplies:["Watch with a second hand","Pen and paper"],
+      steps:["Wash your hands.","Rest their arm on a table or bed.","Put two fingers on the thumb side of the wrist. Keep your own thumb off the wrist.","Feel for the beat.","Watch the second hand and count every beat for one full minute.","Write down the number right away.","Wash your hands."],
+      whys:["Wash up first so you don't spread germs.","Make sure they are relaxed.","Your thumb has its own beat, so it would fool you. Use your fingers.","The beat is the pulse.","Always count beats per minute — 60 seconds, one full trip of the second hand.","Write the number down before you forget.","Wash up again so you don't carry germs to the next person."],
+      remember:["Use fingers, not your thumb (it has its own pulse).","Count for a FULL minute.","Write the number down before you forget."],
+      traps:["Count the pulse using your thumb.","Count for 10 seconds and guess the rest."] },
+    respirations: { name:"Count Breaths (Respirations)", power:"Breath Radar", emoji:"🫁",
+      what:"Counting how many times the resident breathes in one minute.",
+      why:"Breathing tells us about the resident's health.",
+      supplies:["Watch with a second hand","Pen and paper"],
+      steps:["Wash your hands.","Do it quietly, right after the pulse.","Watch the chest go up and down.","One up + one down = one breath.","Count for one full minute.","Write down the number.","Wash your hands."],
+      whys:["Wash up first so you don't spread germs.","Don't tell them — people breathe differently when watched.","One rise + one fall = one breath.","This keeps you from counting the inhale and exhale as two separate breaths.","Always count breaths per minute (60 seconds).","Write the number down before you forget.","Wash up again so you don't carry germs to the next person."],
+      remember:["Don't tell them — people breathe differently when watched.","One rise + one fall = one breath.","Count for a FULL minute."],
+      traps:["Announce loudly that you're counting their breaths.","Count for only a few seconds."] },
+    occupiedbed: { name:"Changing an Occupied Bed", power:"Linen Cyclone", emoji:"🛏️",
+      what:"Putting clean sheets on the bed while the resident is still in it.",
+      why:"Gives a clean, comfortable, dry bed.",
+      supplies:["Gloves","Clean sheets","Clean pillowcase","Laundry hamper"],
+      steps:["Wash hands and put on gloves.","Lower the head of the bed flat (if allowed).","Raise the far side rail so they can't roll off.","Roll them gently to one side, facing away.","Roll the dirty sheet toward them.","Put the clean sheet on the empty half and tuck in.","Help them roll over the bump to the clean side.","Remove the dirty sheet and pull the clean sheet flat.","Fresh pillowcase, make them comfy, wash hands."],
+      whys:["Clean hands and gloves keep the fresh linens sanitary.","This makes it easier to work with.","A raised rail keeps them safe while they're on their side.","This gives you space to change one side while they stay safely in bed.","Keep dirty linen off your clothes.","Work with one half of the bed at a time.","Moving them onto the clean side lets you remove the rest of the dirty sheet.","A smooth, wrinkle-free sheet keeps them comfortable and protects their skin.","Finishing clean keeps everyone safe."],
+      remember:["Keep the far side rail up so they don't roll off.","Never leave them unsafely on their side.","Keep dirty linen off your clothes."],
+      traps:["Leave the far side rail down while they're on their side.","Pile the dirty sheets against your uniform."] },
+    dressing: { name:"Dressing with One-Sided Weakness", power:"Guardian Garb", emoji:"👕",
+      what:"Helping dress a resident when one arm is weak or hurt.",
+      why:"Lets them get dressed without pain or injury.",
+      supplies:["Gloves (if needed)","Clean shirt/gown","Privacy (curtain closed)"],
+      steps:["Wash your hands.","Close the curtain for privacy.","Take the shirt OFF the strong arm first.","Put the clean shirt ON the weak arm first.","Then guide the shirt over the strong arm.","Straighten the clothing so it's comfortable.","Wash your hands."],
+      whys:["Wash up first so you don't spread germs.","Getting dressed is private — the curtain keeps it that way.","Taking off, go strong to weak.","Putting on, go weak to strong.","Guide it gently — never force the weak arm.","Make sure they're comfortable and nothing is bunched up.","Wash up again so you don't carry germs to the next person."],
+      remember:["Weak arm goes IN first, comes OUT last.","Never pull or force the weak arm.","Keep them covered for privacy."],
+      traps:["Put the shirt on the strong arm first.","Yank the weak arm through the sleeve."] },
+    catheter: { name:"Catheter Care (Female)", power:"Shield Flow", emoji:"💧",
+      what:"Cleaning around a tube (catheter) that drains urine.",
+      why:"Keeps the area clean and prevents infection.",
+      supplies:["Gloves","Washcloths","Basin of warm water","Soap","Towel"],
+      steps:["Wash hands and put on gloves.","Check water is warm. Close the curtain.","Cover them, showing only the area you need.","Hold the catheter tube gently so it doesn't pull.","Clean from where the tube leaves the body, down and away, about 4 inches.","Use a clean part of the cloth for each wipe.","Dry the area gently.","Remove gloves, cover them, wash hands."],
+      whys:["Clean hands and gloves prevent infection in a sensitive area.","Nobody likes a cold bath, and privacy is important.","Keep the rest of them covered so they don't feel exposed.","Never pull or tug the catheter tube.","Move the germs AWAY from the body, not towards it.","A dirty spot on the cloth just puts the germs right back.","This is a sensitive body part; be gentle.","Finishing clean protects them and you."],
+      remember:["Always wipe away from the body, never back and forth.","Never pull or tug the catheter tube.","Clean spot on the cloth for every wipe."],
+      traps:["Wipe back and forth along the catheter.","Tug the catheter tube to reposition it."] },
+    bedpan: { name:"Bedpan Assistance", power:"Dignity Guard", emoji:"🚽",
+      what:"Helping a resident use a bedpan in bed.",
+      why:"Lets them use the toilet safely and with dignity.",
+      supplies:["Gloves","Bedpan","Toilet paper","Towel/pad","Wipes"],
+      steps:["Wash hands and put on gloves.","Close the curtain, lower the head of the bed.","Help them roll or lift, slide the bedpan under.","Raise the head of the bed so they sit up a little.","Give privacy and the call light; step away if safe.","When done, clean gloves and help clean front to back.","Remove and cover the bedpan.","Help them wash their hands, then wash yours."],
+      whys:["Clean hands and gloves keep germs away.","Closing the curtain protects privacy while you help them.","Correct placement keeps them comfortable and helps prevent spills.","Sitting up is a more natural position to use the bathroom.","Everyone deserves privacy in the bathroom — give them space.","Cleaning front to back stops germs from spreading.","Covering the bedpan protects privacy and keeps the area clean.","Washing up keeps everyone healthy."],
+      remember:["Give privacy while they use the bedpan.","Always clean front to back.","Keep the call light in reach."],
+      traps:["Leave them uncovered with the door wide open.","Wipe from back to front."] },
+    drainage: { name:"Emptying a Urinary Drainage Bag", power:"Measure Master", emoji:"⚗️",
+      what:"Emptying the bag that collects urine from a catheter.",
+      why:"Keeps the bag from overfilling and lets us measure output.",
+      supplies:["Gloves","Measuring container","Paper towel","Pen and paper"],
+      steps:["Wash hands and put on gloves.","Put the container under the drain spout.","Open the spout and let it drain in.","Don't let the spout touch the container.","Close the spout and wipe it.","Return the spout to its holder.","Make sure the bag hangs below the bladder.","Measure the amount and write it down.","Empty the container, remove gloves, wash hands."],
+      whys:["Clean hands and gloves keep germs away.","The container catches every drop so nothing spills.","Wait patiently to make sure you get it all.","If the spout touches the container, germs jump onto it.","Wiping the spout keeps germs from building up.","Tucking the spout back keeps it clean until next time.","If the bag is above the bladder, urine can flow back and cause infection.","Write the number down before you forget.","Finishing clean keeps everyone safe."],
+      remember:["Never let the spout touch the container or floor.","Keep the bag below the bladder.","Always measure and record the amount."],
+      traps:["Let the drain spout touch the container.","Hang the bag above the resident's bladder."] },
+    perineal: { name:"Perineal Care (Female)", power:"Purify Pulse", emoji:"🌊",
+      what:"Cleaning the private area of a female resident.",
+      why:"Keeps skin clean, prevents infection and odor.",
+      supplies:["Gloves","Washcloths","Basin of warm water","Soap","Towel"],
+      steps:["Wash hands and put on gloves.","Check water is warm. Close the curtain.","Cover them, showing only the area you clean.","Wash from front to back, top to bottom.","Use a clean part of the cloth for each wipe.","Rinse the same way, front to back.","Pat the area dry gently.","Remove gloves, cover them, wash hands."],
+      whys:["Clean hands and gloves prevent infection.","Nobody likes a cold bath, and privacy is important.","Only uncover what you're cleaning, so they keep their dignity.","Front to back keeps germs away from sensitive areas.","A dirty spot on the cloth just puts the germs right back.","Rinse the same way so you don't spread germs.","This is a sensitive part of the body; be gentle.","Finishing clean protects them and you."],
+      remember:["Always clean front to back.","New clean section of cloth for every stroke.","Keep them covered as much as possible."],
+      traps:["Wipe from back to front.","Reuse the same dirty part of the cloth."] },
+    romlower: { name:"Range of Motion — Knee & Ankle", power:"Thaw Kick", emoji:"🦵",
+      what:"Gently moving the leg, knee, and ankle joints.",
+      why:"Keeps joints loose and prevents stiffness.",
+      supplies:["No supplies — just gentle hands"],
+      steps:["Wash your hands.","Tell them you'll move their leg gently.","Support the leg under the knee and ankle.","Slowly bend and straighten the knee.","Gently point the toes up, then down.","Do each move slowly, 3 to 5 times.","Stop if they say it hurts.","Wash your hands."],
+      whys:["Wash up first so you don't spread germs.","Always tell the patient what you're going to do.","Holding above and below keeps the joint steady so it doesn't twist.","Bend it slowly — never push past where it stops.","Gentle ankle moves keep it loose without straining.","Slow movement loosens the joints.","Pain is a stop sign — never work through it.","Wash up again so you don't carry germs to the next person."],
+      remember:["Move slowly and gently — never force a joint.","Support above and below the joint.","Stop right away if it causes pain."],
+      traps:["Force the knee past where it wants to go.","Keep bending after they say it hurts."] },
+    romelbow: { name:"Range of Motion — Elbow & Wrist", power:"Thaw Jab", emoji:"💪",
+      what:"Gently moving the elbow and wrist joints.",
+      why:"Keeps the arm loose and prevents stiffness.",
+      supplies:["No supplies — just gentle hands"],
+      steps:["Wash your hands.","Tell them what you'll do.","Support the arm at the wrist and elbow.","Slowly bend and straighten the elbow.","Gently bend the wrist up and down.","Gently move the wrist side to side.","Do each move 3 to 5 times.","Wash your hands."],
+      whys:["Wash up first so you don't spread germs.","Always tell the patient what you're going to do.","Supporting both sides means it moves safely, not painfully.","Go slow — the joint should never be forced.","Gentle moves keep the wrist from getting hurt.","Only move as far as it goes easily — never push.","Slow movement loosens the joints.","Wash up again so you don't carry germs to the next person."],
+      remember:["Support the joint above and below.","Go slow — never force a movement.","Stop if they feel pain."],
+      traps:["Move the wrist hard and fast.","Push the elbow past its limit."] },
+    romshoulder: { name:"Range of Motion — Shoulder", power:"Thaw Uppercut", emoji:"🙆",
+      what:"Gently moving the shoulder joint.",
+      why:"Keeps the shoulder loose and prevents stiffness.",
+      supplies:["No supplies — just gentle hands"],
+      steps:["Wash your hands.","Tell them what you'll do.","Support the arm at the wrist and elbow.","Slowly raise the straight arm up toward the head.","Slowly lower it back down to the side.","Gently move the arm out to the side and back.","Do each move 3 to 5 times.","Wash your hands."],
+      whys:["Wash up first so you don't spread germs.","Always tell the patient what you're going to do.","Cradling the arm at both ends keeps the shoulder safe.","Raise slowly — stop if the shoulder resists.","Lower it gently, the same way you raised it.","Only go as far as is comfortable — never force it.","Slow movement loosens the joints.","Wash up again so you don't carry germs to the next person."],
+      remember:["One hand under the elbow, one at the wrist.","Move slowly, only as far as is comfortable.","Stop if it hurts."],
+      traps:["Yank the arm quickly overhead.","Keep going after the resident winces in pain."] },
+    bedbath: { name:"Partial Bed Bath", power:"Refresh Wave", emoji:"🧽",
+      what:"Washing parts of the body in bed (face, arms, underarms).",
+      why:"Keeps the resident clean and comfortable.",
+      supplies:["Gloves","Basin of warm water","Soap","2 washcloths","2 towels"],
+      steps:["Wash hands and put on gloves.","Check water is warm. Close the curtain.","Wash the eyes first with water only, inside to outside.","Wash the face, then rinse and dry.","Wash, rinse, and dry each arm and the underarms.","Keep them covered except the part you're washing.","Change the water if it gets cool or dirty.","Remove gloves and wash hands."],
+      whys:["Clean hands and gloves keep the bath sanitary.","Warm water is comfortable, and privacy matters.","You don't want soap getting in their eyes.","You don't want to move germs from other parts of the body to the face.","Fully clean and dry one body part at a time so they don't get cold.","Only the part you're washing needs to show — it protects their privacy.","Nobody likes cold, dirty bath water.","Finishing clean keeps everyone safe."],
+      remember:["Wash eyes with water only, inside corner to outside.","Keep them covered and warm.","Change water when it gets cold or soapy."],
+      traps:["Scrub the eye with soap from the outside corner in.","Leave the resident uncovered and cold."] },
+    position: { name:"Change of Position (Turning)", power:"Turning Tornado", emoji:"🔄",
+      what:"Turning the resident onto their side and supporting them.",
+      why:"Prevents bed sores and keeps them comfortable.",
+      supplies:["Pillows for support","Gloves (if needed)"],
+      steps:["Wash your hands.","Lower the head of the bed flat (if allowed).","Cross their arms over their chest.","Gently roll them onto their side, toward you.","Put a pillow behind their back.","Put a pillow between their knees.","Make sure they're comfortable and safe.","Wash your hands."],
+      whys:["Wash up first so you don't spread germs.","This makes it easier to turn over.","Don't twist or trap their arms.","You don't want them to fall off the bed.","The pillow holds them on their side so they don't roll back.","A pillow between the knees stops bones from rubbing.","Lying in one spot too long can hurt your body.","Wash up again so you don't carry germs to the next person."],
+      remember:["Pillow behind the back and between the knees.","Keep the far side rail up.","Turn residents often to prevent bed sores."],
+      traps:["Leave them flat on their back for hours.","Skip the pillow so their knees grind together."] },
+    wheelchair: { name:"Wheelchair Transfer", power:"Iron Lift", emoji:"♿",
+      what:"Helping a resident move from bed to wheelchair safely.",
+      why:"Moves them without falls or injury.",
+      supplies:["Wheelchair","Gait/transfer belt","Non-skid shoes"],
+      steps:["Wash your hands.","Place the wheelchair beside the bed, on the resident's strong side.","Lock the wheelchair brakes and move the footrests aside.","Put non-skid shoes on the resident.","Help them sit on the edge of the bed.","Put the gait belt around their waist and hold it.","On the count of three, help them stand.","Turn them slowly until their legs feel the chair.","Lower them gently into the chair and wash hands."],
+      whys:["Wash up first so you don't spread germs.","A wheelchair close by means a short, safe transfer.","Locked brakes keep the chair from rolling away — the #1 safety step.","You don't want the patient to slip.","This is a good position to transfer to the wheelchair.","Never pull on the patient's arms — the belt does the work.","Let the patient use their muscles, too.","Make sure they know there is a seat behind and under them.","Finishing clean keeps everyone safe."],
+      remember:["ALWAYS lock the wheelchair brakes first.","Use a gait belt — never pull on the arms.","Bend your knees to protect your back."],
+      traps:["Transfer with the wheelchair brakes unlocked.","Pull them up by their weak arm."] },
+    foot: { name:"Foot Care", power:"Sole Shield", emoji:"🦶",
+      what:"Washing and checking the resident's feet.",
+      why:"Keeps feet clean and catches skin problems early.",
+      supplies:["Gloves","Basin of warm water","Soap","Towel","Lotion"],
+      steps:["Wash hands and put on gloves.","Check water is warm, not hot.","Soak the foot in warm water.","Wash with soap, including between the toes.","Rinse the foot well.","Dry carefully, especially between the toes.","Lotion on top and bottom — NOT between the toes.","Remove gloves and wash hands."],
+      whys:["Clean hands and gloves keep germs away.","Cold water doesn't kill germs, but hot water burns.","The water helps break up dirt.","Germs can hide between the toes.","Get all the now-dirty soap suds off the foot.","Places like this can hide moisture.","You don't want extra lotion to build up here.","Finishing clean keeps everyone safe."],
+      remember:["Dry well between the toes.","No lotion between the toes.","Look for red spots or sores and report them."],
+      traps:["Rub lotion between the toes.","Leave the feet damp between the toes."] },
+    ambulation: { name:"Walking with a Gait Belt", power:"Steady Stride", emoji:"🚶",
+      what:"Helping a resident walk safely using a support belt.",
+      why:"Keeps them from falling while they walk.",
+      supplies:["Gait/transfer belt","Non-skid shoes"],
+      steps:["Wash your hands.","Put non-skid shoes on the resident.","Put the gait belt snugly around the waist.","Help them sit up, then stand on the count of three.","Stand slightly behind and to the side, holding the belt.","Walk slowly at their pace.","Watch for tiredness or dizziness.","Help them sit back down safely and wash hands."],
+      whys:["Wash up first so you don't spread germs.","You don't want the patient to slip.","You will use the belt to support them.","Let the patient use their muscles, too.","You are supporting, not steering.","Slow is safe.","Notice if they need a break before it's too late.","Finishing safely and clean protects everyone."],
+      remember:["Always use non-skid shoes.","Hold the gait belt, not the arm.","Stay to the side and slightly behind."],
+      traps:["Hold onto the resident's arm instead of a gait belt.","Let them walk in slippery socks."] }
+  }
+};
+var CARE_CORPS_PATIENTS = {
+  roomprep:{ name:"Jordan Lee", emoji:"🧑", need:"needs a clean room and clean tools", win:"has a clean room ready for the visit!" },
+  patientid:{ name:"Casey Morgan", emoji:"🧑🏽", need:"needs you to check their name and date of birth", win:"is matched to the right chart!" },
+  verifyinfo:{ name:"Taylor Brooks", emoji:"👩🏾", need:"has a detail that may not match the chart", win:"has the change marked so staff can check it!" },
+  temperature:{ name:"Avery Patel", emoji:"👨🏽", need:"needs a temperature check", win:"has a temperature reading ready for the care team!" },
+  pulseox:{ name:"Riley Chen", emoji:"👩🏻", need:"needs an oxygen check", win:"has an oxygen reading on the rooming form!" },
+  bloodpressure:{ name:"Morgan Davis", emoji:"👨🏼", need:"needs a blood pressure check", win:"has both blood pressure numbers on the form!" },
+  documentation:{ name:"Jordan Lee", emoji:"🧑", need:"needs a rooming form with the right details", win:"has a rooming form ready for the care team!" },
+  roomclose:{ name:"Morgan Davis", emoji:"👨🏼", need:"needs help getting set for the next part of the visit", win:"is ready for the next part of the visit!" },
+  handwashing:{ name:"Mr. Ruiz", emoji:"👨🏽", need:"is worried about catching germs on the ward", win:"gives you a big thumbs up — he feels safe now!" },
+  indirect:{ name:"Mr. Lee", emoji:"👴🏻", need:"is nervous about a caregiver he hasn't met yet", win:"relaxes and smiles — he trusts you now!" },
+  mouth:{ name:"Mrs. Bell", emoji:"👩🏿‍🦳", need:"has a sore, dirty mouth", win:"smiles with a fresh, clean mouth — no more ache!" },
+  handnail:{ name:"Mr. Diaz", emoji:"👨🏽‍🦱", need:"has dirty hands and nails that need care", win:"admires his clean hands — good as new!" },
+  denture:{ name:"Mr. Okafor", emoji:"👴🏿", need:"needs his dentures cleaned", win:"pops in his fresh dentures with a grin!" },
+  feeding:{ name:"Mr. Park", emoji:"👴🏼", need:"is hungry but needs help eating safely", win:"finishes his meal happily — full and safe!" },
+  pulse:{ name:"Mrs. Cole", emoji:"👩🏼‍🦳", need:"needs a pulse check", win:"has a pulse count on the form!" },
+  respirations:{ name:"Mr. Shah", emoji:"👨🏾‍🦳", need:"needs a breath count", win:"has a full minute of breaths counted!" },
+  occupiedbed:{ name:"Miss Ada", emoji:"👵🏾", need:"needs clean, dry sheets but can't get out of bed", win:"settles into a fresh, comfy bed!" },
+  dressing:{ name:"Mr. Dell", emoji:"👨🏼‍🦳", need:"has a broken arm and needs help getting dressed", win:"is dressed and comfortable — no pain at all!" },
+  catheter:{ name:"Mrs. Johnson", emoji:"👩🏻‍🦳", need:"needs careful catheter care to stay infection-free", win:"is clean, comfortable, and protected from infection!" },
+  bedpan:{ name:"Mr. Lee", emoji:"👴🏻", need:"needs the bedpan and his dignity kept intact", win:"is relieved and grateful you kept it private!" },
+  drainage:{ name:"Mrs. Cole", emoji:"👩🏼‍🦳", need:"has a drainage bag that needs emptying and measuring", win:"is safe — output measured and recorded!" },
+  perineal:{ name:"Mrs. Johnson", emoji:"👩🏻‍🦳", need:"needs gentle perineal care to stay clean", win:"is fresh, comfortable, and cared for with dignity!" },
+  romlower:{ name:"Mr. Osei", emoji:"👨🏿", need:"has stiff, achy knees and ankles today", win:"moves easier — the stiffness is melting away!" },
+  romelbow:{ name:"Mr. Osei", emoji:"👨🏿", need:"has a stiff elbow and wrist", win:"bends his arm freely again — thank you!" },
+  romshoulder:{ name:"Mr. Osei", emoji:"👨🏿", need:"has a stiff, frozen shoulder", win:"lifts his arm with a smile — loosened up!" },
+  bedbath:{ name:"Miss Pearl", emoji:"👵🏼", need:"hasn't been able to shower and wants to feel fresh", win:"feels clean and refreshed — like a new day!" },
+  position:{ name:"Miss Ada", emoji:"👵🏾", need:"has been lying in one spot too long", win:"rests comfortably — no bed sores on your watch!" },
+  wheelchair:{ name:"Mr. Tan", emoji:"👴🏻", need:"needs to be wheeled to the cafeteria for lunch", win:"rolls off to lunch safely — no falls!" },
+  foot:{ name:"Mr. Grady", emoji:"👴🏼", need:"has feet that need washing and checking", win:"wiggles his clean toes — feet feel great!" },
+  ambulation:{ name:"Miss Dot", emoji:"👵🏼", need:"wants to walk down the hall without falling", win:"reaches the end of the hall and beams — she did it safely!" }
+};
+// EPISODE 1 — ROOMING MISSION ONLY
+var EPISODE1_SKILLS=["roomprep","patientid","verifyinfo","temperature","pulse","respirations","pulseox","bloodpressure","documentation","roomclose"];
+CARE_CORPS_DATA.villains=CARE_CORPS_DATA.villains.filter(function(v){return v.id==="rooming";});
+Object.keys(CARE_CORPS_DATA.skills).forEach(function(k){if(EPISODE1_SKILLS.indexOf(k)===-1) delete CARE_CORPS_DATA.skills[k];});
+Object.keys(CARE_CORPS_PATIENTS).forEach(function(k){if(EPISODE1_SKILLS.indexOf(k)===-1) delete CARE_CORPS_PATIENTS[k];});
+CARE_CORPS_DATA.finalBoss={id:"roomraider",name:"The Room Raider",emoji:"🩺",color:"#0d9488",scheme:"Scrambles the rooming workflow!",defeat:"Master all 10 Rooming Mission skills to complete Episode 1!"};
+var NOVA_CHEERS = ["Nice move, hero!","That's it — keep going!","You're a natural!","The Corps is proud of you!","Boom! Right on target!","You've got this!","Textbook heroics!","Look at you go!","Steady and strong!"];
+var NOVA_REDIRECT = ["Almost! Let's think about what comes first.","Good try — heroes learn by trying. Here's a hint.","Not quite, but you're close. Look again!","Every hero needs a tip sometimes. Try this one.","Oops-a-daisy! Let's find the next safe step."];
+
+</script>
+<script>
+
+var LSKEY="careCorps_v3";
+var CARE_CORPS_SALT="CareCorps::Mayo-ProjectSEARCH::v3::9f3a-b17c-4e21-a8d0";
+var COLORS=["#c62828","#1c6fb8","#2e7d32","#f2b90c","#8e5cd9","#e0872b","#0d9488","#d6336c","#5a7bbd","#111827"];
+var EMOJIS=["🦸","🦸‍♀️","⚡","🚀","🛡️","💪","🌟","🦅","🔥","❤️","🐯","🐉","🌈","🎸","👑","🤖"];
+var state={heroes:[],activeId:null,sound:true};
+var draft={color:COLORS[0],emoji:EMOJIS[0]};
+var ALL=Object.keys(CARE_CORPS_DATA.skills);
+function save(){localStorage.setItem(LSKEY,JSON.stringify(state));}
+function load(){try{var s=JSON.parse(localStorage.getItem(LSKEY));if(s&&s.heroes){state=s;if(state.sound===undefined)state.sound=true;}}catch(e){}}
+function uid(){return "h"+Date.now()+Math.floor(Math.random()*999);}
+function activeHero(){return state.heroes.find(function(h){return h.id===state.activeId;});}
+function prog(h,sid){if(!h.progress)h.progress={};if(!h.progress[sid])h.progress[sid]={watch:false,guided:false,solo:false,legend:false,safety:false,stars:0,ts:{}};var p=h.progress[sid];if(p.safety===undefined)p.safety=false;if(!p.ts)p.ts={};return p;}
+function skillRankIdx(h,sid){var p=prog(h,sid);if(p.legend)return 4;if(p.solo)return 3;if(p.guided)return 2;if(p.watch)return 1;return 0;}
+function villainOf(sid){return CARE_CORPS_DATA.villains.find(function(v){return v.skills.indexOf(sid)>=0;});}
+function patientOf(sid){return CARE_CORPS_PATIENTS[sid];}
+function show(id){
+  if(id==="screen-select"){ try{ renderHeroes(); }catch(e){} }
+  ["screen-intro","screen-select","screen-new","screen-board","screen-report","screen-hub","screen-play","screen-trophy"].forEach(function(s){document.getElementById(s).classList.toggle("hidden",s!==id);});
+  window.scrollTo(0,0);
+}
+function goSelect(){ state.activeId=null; save(); show("screen-select"); }
+function mediaCandidates(sid,n){var base="media/"+sid+(n!=null?("-"+(n+1)):"");return {images:[base+".jpg",base+".jpeg",base+".png",base+".webp",base+".gif"],videos:[base+".mp4",base+".webm"]};}
+function loadMedia(el,sid,n,fallbackHtml){
+  var cand=mediaCandidates(sid,n);var imgs=cand.images.slice(), vids=cand.videos.slice();
+  function tryVideo(){if(!vids.length){el.innerHTML=fallbackHtml;return;}var src=vids.shift();var v=document.createElement("video");v.controls=true;v.playsInline=true;v.preload="metadata";v.onloadeddata=function(){el.innerHTML="";el.appendChild(v);};v.onerror=function(){tryVideo();};v.src=src;}
+  function tryImage(){if(!imgs.length){tryVideo();return;}var src=imgs.shift();var im=new Image();im.onload=function(){el.innerHTML="";im.alt="";el.appendChild(im);};im.onerror=function(){tryImage();};im.src=src;}
+  el.innerHTML=fallbackHtml;tryImage();
+}
+function renderHeroes(){
+  var g=document.getElementById("heroesGrid");if(!g)return;g.innerHTML="";
+  state.heroes.forEach(function(h){
+    var pct=heroCityPct(h),top=highestRankLabel(h);
+    var c=document.createElement("div");c.className="hero-card";c.style.background=tint(h.color,.12);
+    c.onclick=function(){pickHero(h.id);};
+    c.innerHTML='<div class="del" title="Delete" onclick="event.stopPropagation();deleteHero(\''+h.id+'\')">×</div>'+
+      '<div class="em" style="background:'+tint(h.color,.25)+';color:'+h.color+'">'+h.emoji+'</div>'+
+      '<div class="cn" style="color:'+h.color+'">'+escapeHtml(h.name)+'</div><div class="rn">'+top+' • '+pct+'%</div>';
+    g.appendChild(c);
+  });
+  var add=document.createElement("div");add.className="hero-card add";add.onclick=newHero;
+  add.innerHTML='<div style="font-size:44px">➕</div><div class="cn" style="color:var(--navy)">New Hero</div>';g.appendChild(add);
+}
+function highestRankLabel(h){var b=0;ALL.forEach(function(s){b=Math.max(b,skillRankIdx(h,s));});return b===0?"Recruit":CARE_CORPS_DATA.ranks[b-1].label;}
+function pickHero(id){state.activeId=id;save();enterBoard();}
+function deleteHero(id){var h=state.heroes.find(function(x){return x.id===id;});if(!confirm("Delete \""+(h?h.name:"")+"\"? Export a backup first!"))return;state.heroes=state.heroes.filter(function(x){return x.id!==id;});if(state.activeId===id)state.activeId=null;save();renderHeroes();}
+function newHero(){draft={color:COLORS[0],emoji:EMOJIS[0]};document.getElementById("newName").value="";
+  var sr=document.getElementById("swatchRow");sr.innerHTML="";
+  COLORS.forEach(function(c){var d=document.createElement("div");d.className="swatch"+(c===draft.color?" sel":"");d.style.background=c;
+    d.onclick=function(){draft.color=c;[].forEach.call(sr.children,function(x){x.classList.remove("sel");});d.classList.add("sel");};sr.appendChild(d);});
+  var er=document.getElementById("emojiRow");er.innerHTML="";
+  EMOJIS.forEach(function(e){var d=document.createElement("div");d.className="emoji-pick"+(e===draft.emoji?" sel":"");d.textContent=e;
+    d.onclick=function(){draft.emoji=e;[].forEach.call(er.children,function(x){x.classList.remove("sel");});d.classList.add("sel");};er.appendChild(d);});
+  show("screen-new");}
+function createHero(){var name=document.getElementById("newName").value.trim();if(!name){alert("Give your hero a name!");return;}
+  var h={id:uid(),name:name,color:draft.color,emoji:draft.emoji,createdAt:Date.now(),progress:{}};state.heroes.push(h);state.activeId=h.id;save();
+  fxBurst("WELCOME!",name+" joins the Corps!");setTimeout(enterBoard,700);}
+function enterBoard(){renderBoard();show("screen-board");}
+function setHeroChip(pfx){var h=activeHero();if(!h)return;document.getElementById(pfx+"Emblem").textContent=h.emoji;document.getElementById(pfx+"Emblem").style.background=tint(h.color,.2);
+  var nm=document.getElementById(pfx+"Hero");if(nm){nm.textContent=h.name;nm.style.color=h.color;}}
+function renderBoard(){
+  var h=activeHero();if(!h){show("screen-select");return;}
+  document.getElementById("tbEmblem").textContent=h.emoji;document.getElementById("tbEmblem").style.background=tint(h.color,.2);
+  document.getElementById("tbName").textContent=h.name;document.getElementById("tbName").style.color=h.color;
+  document.getElementById("sndBtn").textContent=state.sound?"🔊 Sound On":"🔇 Sound Off";
+  var pct=heroCityPct(h);document.getElementById("cityFill").style.width=pct+"%";document.getElementById("cityPct").textContent=pct+"%";
+  document.getElementById("novaLine").textContent=novaSays(pct);
+  var list=document.getElementById("villainList");list.innerHTML="";
+  CARE_CORPS_DATA.villains.forEach(function(v){
+    var contained=villainContained(h,v);
+    var vv=document.createElement("div");vv.className="villain"+(contained?" contained":"");
+    var head=document.createElement("div");head.className="vhead";head.style.background=v.color;
+    var beaten=v.skills.filter(function(s){return skillRankIdx(h,s)>=3;}).length;
+    head.innerHTML='<div class="vemoji">'+v.emoji+'</div><div><div class="vname">'+v.name+'</div><div class="vscheme">'+v.scheme+'</div></div>'+
+      '<div class="vstatus">'+(contained?"🔒 CONTAINED":beaten+"/"+v.skills.length+" beaten")+'</div>';
+    vv.appendChild(head);
+    var mg=document.createElement("div");mg.className="missions";
+    v.skills.forEach(function(sid){mg.appendChild(missionCard(h,sid));});
+    vv.appendChild(mg);list.appendChild(vv);
+  });
+  var mastered=ALL.filter(function(s){return skillRankIdx(h,s)>=3;}).length,total=ALL.length;
+  document.getElementById("bossFill").style.width=Math.round(mastered/total*100)+"%";
+  document.getElementById("bossPct").textContent=mastered+" / "+total+" skills mastered";
+  var ready=mastered>=total;document.getElementById("unmaskBtn").disabled=!ready;
+  document.getElementById("bossStatus").textContent=ready?"The disguises are slipping… UNMASK him!":"Reach Hero on all "+total+" skills.";
+  save();
+}
+function missionCard(h,sid){
+  var sk=CARE_CORPS_DATA.skills[sid],ri=skillRankIdx(h,sid),p=prog(h,sid);
+  var c=document.createElement("div");c.className="mcard";c.onclick=function(){openHub(sid);};
+  var badgeClass=ri===0?"b-locked":("b-"+CARE_CORPS_DATA.ranks[ri-1].key);
+  var badgeText=ri===0?"Not started":CARE_CORPS_DATA.ranks[ri-1].label;
+  var stars=p.stars?("★★★".slice(0,p.stars)+"☆☆☆".slice(0,3-p.stars)):"";
+  c.innerHTML=(sk.always?'<div class="always-tag">EVERY TEST</div>':'')+
+    (stars?'<div class="stars">'+stars+'</div>':'')+
+    (p.safety?'<div class="safebadge" title="Safety Badge earned">🛡️</div>':'')+
+    '<div class="mtop"><div class="mem">'+sk.emoji+'</div><div><div class="mname">'+sk.name+'</div><div class="mpow">⚡ '+sk.power+'</div></div></div>'+
+    '<span class="badge '+badgeClass+'">'+badgeText+'</span>';
+  return c;
+}
+var curSid=null;
+function openHub(sid){
+  curSid=sid;var h=activeHero(),sk=CARE_CORPS_DATA.skills[sid],v=villainOf(sid),pt=patientOf(sid);var p=prog(h,sid);
+  setHeroChip("hb");
+  var head=document.getElementById("hubHead");
+  var rankChips=CARE_CORPS_DATA.ranks.map(function(r,i){return '<span class="rchip'+(skillRankIdx(h,sid)>=i+1?" on":"")+'"><b class="num">'+r.icon+'</b> '+r.label+'</span>';}).join("");
+  head.innerHTML=
+    '<div class="dhead"><div class="dem">'+sk.emoji+'</div><div>'+
+    '<div class="mission-title">'+sk.name.toUpperCase()+'</div>'+
+    '<div class="dpow">⚡ Power: '+sk.power+(sk.always?'  •  🔴 Scored every test':'')+'</div>'+
+    '<div class="vs">'+v.emoji+' vs. '+v.name+'</div></div></div>'+
+    '<div class="patient"><div class="pem">'+pt.emoji+'</div><div><div class="pn">'+pt.name+' needs your help!</div>'+
+      '<div class="pd">'+pt.name+' '+pt.need+'. Learn this skill to stop '+v.name+' and save the day!</div></div></div>'+
+    '<div class="rank-track-mini">'+rankChips+(p.safety?' <span class="rchip on">🛡️ Safety Badge</span>':'')+'</div>'+
+    '<div class="section-h">🎯 Play Each Stage in Order</div>'+
+    '<p style="font-weight:700;margin:.1em 0 .3em">Finish one stage to open the next.</p>'+
+    '<div class="modes">'+
+      modeCard("watch","🎬","1 · WATCH","Read each step and see why it helps.",p.watch,true,"mode-w")+
+      modeCard("guided","🤝","2 · TRY WITH HELP","Put the steps in order. Ask for a hint if you get stuck.",p.guided,p.watch,"mode-g")+
+      modeCard("safety","🚨","3 · SAFETY CHECK","Spot the step that could cause harm.",p.safety,p.guided,"mode-safe")+
+      modeCard("solo","🦸","4 · DO IT ON YOUR OWN","Put the steps in order without hints.",p.solo,p.safety,"mode-s")+
+      modeCard("legend","⭐","5 · LEGEND","Pick a rule you would teach a new hero.",p.legend,p.solo,"mode-l")+
+    '</div>';
+  show("screen-hub");
+}
+function modeCard(mode,icon,title,desc,done,unlocked,cls){
+  var lock=!unlocked&&!done;
+  return '<div class="mode-card '+cls+(lock?" locked":"")+'" '+(lock?'':'onclick="startMode(\''+mode+'\')"')+'>'+
+    (done?'<div class="done">✓</div>':'')+(lock?'<div class="lockicon">🔒</div>':'')+
+    '<div class="mi">'+icon+'</div><div class="mode-title">'+title+'</div><div class="md">'+desc+'</div></div>';
+}
+function quitToHub(){openHub(curSid);}
+function backToBoard(){renderBoard();show("screen-board");}
+function playHead(sk,v,pt,hpPct){
+  return '<div class="battle-top"><div class="vfight" id="vFight">'+v.emoji+'</div>'+
+    '<div class="hpwrap"><div class="hplabel">'+v.name+"'s Power</div>"+
+    '<div class="hpbar"><i id="hpFill" style="width:'+hpPct+'%"></i></div></div>'+
+    '<div style="font-size:34px" title="'+pt.name+'">'+pt.emoji+'</div></div>';
+}
+function novaBubble(txt){return '<div class="nova-bubble" id="novaBubble"><div class="nface">🚀</div><div class="ntext"><b>Nurse Nova:</b> <span id="novaSpan">'+txt+'</span></div></div>';}
+function setNova(txt){var s=document.getElementById("novaSpan");if(s)s.textContent=txt;}
+function damageVillain(pct){var f=document.getElementById("hpFill");if(f)f.style.width=pct+"%";var vf=document.getElementById("vFight");if(vf){vf.classList.remove("hit");void vf.offsetWidth;vf.classList.add("hit");}}
+function stampTime(sid,stage){var p=prog(activeHero(),sid);p.ts[stage]=Date.now();}
+function startMode(mode){
+  if(mode==="watch")startWatch();
+  else if(mode==="guided")startOrder("guided");
+  else if(mode==="solo")startOrder("solo");
+  else if(mode==="legend")startLegend();
+  else if(mode==="safety")startSafety();
+}
+var watchIdx=0;
+function startWatch(){watchIdx=0;setHeroChip("pl");show("screen-play");renderWatch();}
+function renderWatch(){
+  var sk=CARE_CORPS_DATA.skills[curSid],v=villainOf(curSid),pt=patientOf(curSid);
+  var steps=sk.steps,n=steps.length;
+  var dots="";for(var i=0;i<n;i++)dots+='<span class="'+(i<=watchIdx?"on":"")+'"></span>';
+  var why=sk.whys[watchIdx];
+  var area=document.getElementById("playArea");
+  area.innerHTML=
+    '<div class="dpow" style="text-align:center;color:var(--blue)">🎬 WATCH &amp; LEARN — '+sk.name+'</div>'+
+    playHead(sk,v,pt,100)+
+    '<div class="watch-step"><div class="watch-num num">'+(watchIdx+1)+'</div>'+
+      '<div class="media-stage" id="mediaStage"></div>'+
+      '<div class="watch-text">'+escapeHtml(steps[watchIdx])+'</div>'+
+      (why?'<div class="watch-why">💡 <b>Why:</b> '+escapeHtml(why)+'</div>':'')+
+    '</div><div class="progress-dots">'+dots+'</div>'+
+    '<div style="display:flex;gap:10px;justify-content:space-between">'+
+      '<button class="btn ghost small" onclick="watchPrev()" '+(watchIdx===0?'disabled':'')+'>◀ Back</button>'+
+      (watchIdx<n-1?'<button class="btn big" onclick="watchNext()">Next ▶</button>':'<button class="btn green big" onclick="finishWatch()">Next: Try With Help</button>')+
+    '</div>';
+  loadMedia(document.getElementById("mediaStage"),curSid,watchIdx,'<div class="watch-emoji">'+sk.emoji+'</div>');
+  playCoachSound();
+}
+function watchNext(){watchIdx++;renderWatch();}
+function watchPrev(){if(watchIdx>0){watchIdx--;renderWatch();}}
+function finishWatch(){var h=activeHero();prog(h,curSid).watch=true;stampTime(curSid,"watch");save();
+  fxBurst("NICE!","You learned the steps!");playRankSound(1);startMode("guided");}
+var orderState=null;
+function startOrder(mode){
+  var sk=CARE_CORPS_DATA.skills[curSid];var correct=sk.steps.slice();
+  var bank=correct.map(function(t,i){return {id:i,t:t};});shuffle(bank);
+  orderState={mode:mode,correct:correct,bank:bank,placed:[],placedIds:[],next:0,misses:0,totalMisses:0,hintsUsed:0,n:correct.length};
+  setHeroChip("pl");show("screen-play");renderOrder();
+}
+function renderOrder(){
+  var sk=CARE_CORPS_DATA.skills[curSid],v=villainOf(curSid),pt=patientOf(curSid),os=orderState;
+  var hp=Math.round((1-os.next/os.n)*100);
+  var slots="";
+  for(var i=0;i<os.n;i++){
+    if(i<os.placed.length){slots+='<div class="slot filled"><div class="snum num">'+(i+1)+'</div><div class="stext">'+escapeHtml(os.placed[i])+'</div></div>';}
+    else if(i===os.next){slots+='<div class="slot" style="border-color:var(--gold)"><div class="snum num">'+(i+1)+'</div><div class="stext" style="opacity:.5">Tap the step that comes next.</div></div>';}
+    else {slots+='<div class="slot"><div class="snum num">'+(i+1)+'</div><div class="stext" style="opacity:.3">—</div></div>';}}
+  var bankCards=os.bank.filter(function(b){return os.placedIds.indexOf(b.id)<0;});
+  var bankHtml=bankCards.map(function(b){return '<div class="step-card" data-id="'+b.id+'" onclick="pickStep(this)"><span class="sem">'+sk.emoji+'</span>'+escapeHtml(b.t)+'</div>';}).join("");
+  var modeLabel=os.mode==="guided"?"🤝 TRY WITH HELP":"🦸 DO IT ON YOUR OWN";
+  var intro=os.mode==="guided"?("Help "+pt.name+"! Tap the steps in the right order. Stuck? I'll help you. 💛"):("Put the steps in order to stop "+v.name+"!");
+  var area=document.getElementById("playArea");
+  area.innerHTML='<div class="dpow" style="text-align:center;color:'+(os.mode==="guided"?"#b8860b":"var(--green)")+'">'+modeLabel+' — '+sk.name+'</div>'+
+    playHead(sk,v,pt,hp)+novaBubble(intro)+
+    '<div class="section-h">✅ The Right Order</div><div class="slots">'+slots+'</div>'+
+    '<div class="section-h">🎴 Tap the Next Step</div><div class="bank">'+bankHtml+'</div>'+
+    (os.mode==="guided"?'<div style="text-align:center;margin-top:12px"><button class="btn gold small" onclick="askNova()">💡 Ask Nurse Nova for a Hint</button></div>':'');
+}
+function cardById(id){for(var i=0;i<orderState.bank.length;i++){if(orderState.bank[i].id===id)return orderState.bank[i];}return null;}
+function pickStep(el){
+  var os=orderState;var id=parseInt(el.getAttribute("data-id"),10);var card=cardById(id);if(!card)return;
+  var chosen=card.t;
+  if(chosen===os.correct[os.next]){
+    os.placed.push(chosen);os.placedIds.push(id);os.next++;os.misses=0;playHitSound();
+    if(os.next<os.n){damageVillain(Math.round((1-os.next/os.n)*100));renderOrder();setNova(randOf(NOVA_CHEERS));}
+    else {damageVillain(0);finishOrder();}
+  } else {
+    os.misses++;os.totalMisses++;el.classList.add("wrong");setTimeout(function(){el.classList.remove("wrong");},400);playMissSound();
+    if(os.mode==="guided"){setNova(randOf(NOVA_REDIRECT));if(os.misses>=2){os.hintsUsed++;highlightCorrect();setNova("Tap the step that lights up. 💛");}}
+    else {setNova("Not quite! Think about what keeps "+patientOf(curSid).name+" safe. Try again!");}
+  }
+}
+function highlightCorrect(){var os=orderState;var want=os.correct[os.next];var cards=document.querySelectorAll(".step-card");
+  [].forEach.call(cards,function(c){var cd=cardById(parseInt(c.getAttribute("data-id"),10));if(cd&&cd.t===want)c.classList.add("hintpulse");});}
+function askNova(){var os=orderState;os.hintsUsed++;var want=os.correct[os.next];
+  setNova('The next step starts with: "'+want.split(" ").slice(0,3).join(" ")+'…" ✨');playCoachSound();}
+function finishOrder(){
+  var h=activeHero(),p=prog(h,curSid),os=orderState,v=villainOf(curSid);
+  if(os.mode==="guided"){p.guided=true;stampTime(curSid,"guided");save();
+    fxBurst(randPow(),v.name+" is weakening!");playRankSound(2);
+    setTimeout(function(){stamp("GREAT TEAMWORK!");},250);setTimeout(function(){winScreen("guided");},1100);
+  } else {p.solo=true;var stars=os.totalMisses===0?3:(os.totalMisses<=2?2:1);if(stars>(p.stars||0))p.stars=stars;stampTime(curSid,"solo");save();
+    fxBurst("VICTORY!",v.name+" DEFEATED!");playRankSound(3);setTimeout(function(){stamp("HERO!");},300);
+    setTimeout(function(){if(villainContained(h,v))fxBurst("GOTCHA!",v.name+" CONTAINED! 🔒");},1200);
+    setTimeout(function(){winScreen("solo");},1400);}
+}
+function winScreen(mode){
+  var sk=CARE_CORPS_DATA.skills[curSid],v=villainOf(curSid),pt=patientOf(curSid),h=activeHero(),p=prog(h,curSid);
+  var area=document.getElementById("playArea");
+  var starRow=mode==="solo"?('<div style="font-size:38px;letter-spacing:4px;margin:6px 0">'+"★".repeat(p.stars)+"☆".repeat(3-p.stars)+'</div>'):'';
+  var next=mode==="guided"?'<button class="btn big" style="background:#d61f69" onclick="startMode(\'safety\')">Next: Safety Check</button>':
+    (p.legend?'<button class="btn navy" onclick="openHub(curSid)">↩ Back to Stages</button>':'<button class="btn big" style="background:#fb5607" onclick="startMode(\'legend\')">Next: Become a Legend</button>');
+  area.innerHTML='<div style="text-align:center"><div style="font-size:70px">'+pt.emoji+'</div>'+
+    '<div class="mission-title" style="color:var(--green)">'+(mode==="solo"?"YOU SAVED THE DAY!":"NICE TEAMWORK!")+'</div>'+starRow+
+    '<p style="font-weight:800;font-size:18px">'+pt.name+' '+pt.win+'</p>'+
+    (mode==="solo"?'<div class="callout" style="margin:12px 0"><b>⚡ Power unlocked:</b> '+sk.power+'<br>You reached <b>HERO</b> rank on '+sk.name+'!</div>':
+      '<div class="callout" style="margin:12px 0">You put the steps in order with help. Now look for steps that could cause harm.</div>')+
+    '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px">'+next+
+      '<button class="btn ghost small" onclick="openHub(curSid)">↩ Stages</button>'+
+      '<button class="btn navy small" onclick="backToBoard()">🗺️ Mission Board</button></div></div>';
+}
+var safetyState=null;
+function startSafety(){
+  var sk=CARE_CORPS_DATA.skills[curSid];var traps=(sk.traps||[]).slice();var rounds=[];
+  var safe=sk.steps.slice();shuffle(safe);
+  for(var r=0;r<Math.min(2,traps.length);r++){
+    var opts=[{t:traps[r],unsafe:true},{t:safe[(r*2)%safe.length],unsafe:false},{t:safe[(r*2+1)%safe.length],unsafe:false}];
+    shuffle(opts);rounds.push(opts);
+  }
+  if(rounds.length===0){rounds.push([{t:"Skip washing your hands.",unsafe:true},{t:sk.steps[0],unsafe:false},{t:sk.steps[1]||sk.steps[0],unsafe:false}]);}
+  safetyState={rounds:rounds,idx:0,wrong:0};
+  setHeroChip("pl");show("screen-play");renderSafety();
+}
+function renderSafety(){
+  var sk=CARE_CORPS_DATA.skills[curSid],v=villainOf(curSid),pt=patientOf(curSid),ss=safetyState;
+  var opts=ss.rounds[ss.idx];var hp=Math.round((1-ss.idx/ss.rounds.length)*100);
+  var optHtml=opts.map(function(o,i){return '<div class="step-card" onclick="pickSafety('+i+',this)"><span class="sem">'+v.emoji+'</span>'+escapeHtml(o.t)+'</div>';}).join("");
+  var area=document.getElementById("playArea");
+  area.innerHTML='<div class="dpow" style="text-align:center;color:#d61f69">🚨 SAFETY CHECK — '+sk.name+'</div>'+
+    playHead(sk,v,pt,hp)+
+    novaBubble("Round "+(ss.idx+1)+" of "+ss.rounds.length+": "+v.name+" hid a step that could cause harm. Can you find it? 🚨")+
+    '<div class="section-h">☠️ Tap the step that could cause harm.</div>'+
+    '<div class="bank">'+optHtml+'</div>';
+}
+function pickSafety(i,el){
+  var ss=safetyState;var opts=ss.rounds[ss.idx];var o=opts[i];
+  if(o.unsafe){playHitSound();el.style.background="#9be7a0";ss.idx++;
+    if(ss.idx<ss.rounds.length){setTimeout(renderSafety,500);}else {finishSafety();}
+  } else {ss.wrong++;el.classList.add("wrong");setTimeout(function(){el.classList.remove("wrong");},400);playMissSound();
+    var sk=CARE_CORPS_DATA.skills[curSid];setNova("That step is safe. Look for the step that could cause harm. 💡 Tip: "+randOf(sk.remember));}
+}
+function finishSafety(){
+  var h=activeHero(),p=prog(h,curSid);p.safety=true;stampTime(curSid,"safety");save();
+  fxBurst("SAFE!","Safety Badge earned! 🛡️");playRankSound(3);setTimeout(function(){stamp("SAFETY HERO!");},300);
+  setTimeout(function(){
+    var v=villainOf(curSid),pt=patientOf(curSid);var area=document.getElementById("playArea");
+    area.innerHTML='<div style="text-align:center"><div style="font-size:64px">🛡️</div>'+
+      '<div class="mission-title" style="color:#d61f69">SAFETY BADGE EARNED!</div>'+
+      '<p style="font-weight:800;font-size:18px">You spotted every dangerous move and kept '+pt.name+' safe. Now try the steps on your own! 🦸</p>'+
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px">'+
+      '<button class="btn green big" onclick="startMode(\'solo\')">Next: Do It on Your Own</button>'+
+      '<button class="btn navy" onclick="openHub(curSid)">↩ Stages</button></div></div>';
+  },1200);
+}
+var legendState=null;
+function startLegend(){
+  var sk=CARE_CORPS_DATA.skills[curSid];var correctRule=randOf(sk.remember);
+  var pool=[];ALL.forEach(function(s){if(s!==curSid)CARE_CORPS_DATA.skills[s].remember.forEach(function(r){pool.push(r);});});shuffle(pool);
+  var opts=[{t:correctRule,ok:true}];var used={};used[correctRule.toLowerCase()]=1;
+  for(var i=0;i<pool.length&&opts.length<3;i++){if(!used[pool[i].toLowerCase()]){opts.push({t:pool[i],ok:false});used[pool[i].toLowerCase()]=1;}}
+  shuffle(opts);legendState={opts:opts,answered:false};setHeroChip("pl");show("screen-play");renderLegend();
+}
+function renderLegend(){
+  var sk=CARE_CORPS_DATA.skills[curSid];var area=document.getElementById("playArea");
+  var opts=legendState.opts.map(function(o,i){return '<button class="step-card" style="width:100%;text-align:left" id="lopt'+i+'" onclick="answerLegend('+i+')">'+escapeHtml(o.t)+'</button>';}).join("");
+  area.innerHTML='<div class="dpow" style="text-align:center;color:#fb5607">⭐ LEGEND CHALLENGE — '+sk.name+'</div>'+
+    novaBubble("A new hero needs your help. Which rule fits "+sk.name+"?")+
+    '<div class="section-h">🎓 Pick the rule you would teach.</div>'+
+    '<div class="bank">'+opts+'</div>';
+}
+function answerLegend(i){
+  if(legendState.answered)return;var o=legendState.opts[i];var el=document.getElementById("lopt"+i);
+  if(o.ok){legendState.answered=true;el.style.background="#9be7a0";playRankSound(4);
+    var h=activeHero();prog(h,curSid).legend=true;stampTime(curSid,"legend");save();
+    fxBurst("LEGEND!","You can teach it now! ⭐");setTimeout(function(){stamp("LEGEND ⭐");},300);
+    setTimeout(function(){var area=document.getElementById("playArea");
+      area.innerHTML='<div style="text-align:center"><div style="font-size:64px">⭐</div>'+
+        '<div class="mission-title" style="color:#fb5607">YOU\'RE A LEGEND!</div>'+
+        '<p style="font-weight:800;font-size:18px">You mastered '+CARE_CORPS_DATA.skills[curSid].name+' AND can teach it to others. Top rank in the Corps!</p>'+
+        '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px">'+
+        '<button class="btn navy" onclick="openHub(curSid)">↩ Stages</button>'+
+        '<button class="btn green" onclick="backToBoard()">Next: Mission Board</button></div></div>';},1200);
+  } else {el.classList.add("wrong");playMissSound();setNova("Good try! That's not a rule for this skill. Which one keeps THIS patient safe?");}
+}
+function heroCityPct(h){var got=0;ALL.forEach(function(s){got+=Math.min(3,skillRankIdx(h,s));});return Math.round(got/(ALL.length*3)*100);}
+function villainContained(h,v){return v.skills.every(function(s){return skillRankIdx(h,s)>=3;});}
+function novaSays(pct){if(pct===0)return "Hi, hero! Pick a skill and tap Watch to start.";
+  if(pct<25)return "Great start! Keep working on your rooming skills.";
+  if(pct<50)return "You're on fire! The city's getting safer by the mission.";
+  if(pct<75)return "You’re at least halfway there!";
+  if(pct<100)return "You’re close! Keep going until all skills reach Hero.";
+  return "You reached Hero on all 10 skills. Now you can unmask the Deceptor!";}
+function openTrophy(){var h=activeHero(),g=document.getElementById("trophyGrid");g.innerHTML="";
+  CARE_CORPS_DATA.villains.forEach(function(v){var caught=villainContained(h,v),beaten=v.skills.filter(function(s){return skillRankIdx(h,s)>=3;}).length;
+    var d=document.createElement("div");d.className="mug"+(caught?" caught":"");
+    d.innerHTML='<div class="bars"></div><div class="mem">'+v.emoji+'</div><div class="mn">'+v.name+'</div>'+
+      '<div class="st '+(caught?"caught":"free")+'">'+(caught?"🔒 CONTAINED":beaten+"/"+v.skills.length+" beaten")+'</div>';g.appendChild(d);});
+  show("screen-trophy");}
+function unmaskDeceptor(){fxBurst("UNMASKED!","The Deceptor is defeated!");setTimeout(function(){stamp("WARD SAVED!");},400);
+  setTimeout(function(){var h=activeHero();alert("🎭 THE DECEPTOR IS UNMASKED!\n\nCongratulations, "+h.name+"! You reached Hero on all 10 skills and saved the clinic.\n\nWelcome to the League of Everyday Heroes. ⭐\n\n— Nurse Nova");},1200);}
+function cyrb53(str,seed){seed=seed||0;var h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;
+  for(var i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}
+  h1=Math.imul(h1^(h1>>>16),2246822507);h1^=Math.imul(h2^(h2>>>13),3266489909);
+  h2=Math.imul(h2^(h2>>>16),2246822507);h2^=Math.imul(h1^(h1>>>13),3266489909);
+  return (4294967296*(2097151&h2)+(h1>>>0)).toString(16);}
+function canon(o){if(Array.isArray(o))return '['+o.map(canon).join(',')+']';
+  if(o&&typeof o==='object'){return '{'+Object.keys(o).sort().map(function(k){return JSON.stringify(k)+':'+canon(o[k]);}).join(',')+'}';}
+  return JSON.stringify(o);}
+function signPayload(payload){return cyrb53(canon(payload)+CARE_CORPS_SALT);}
+function buildReport(h){
+  var skills={};ALL.forEach(function(s){var p=prog(h,s);skills[s]={rank:skillRankIdx(h,s),stars:p.stars||0,safety:!!p.safety,ts:p.ts||{}};});
+  var mastered=ALL.filter(function(s){return skillRankIdx(h,s)>=3;}).length;
+  var legends=ALL.filter(function(s){return skillRankIdx(h,s)>=4;}).length;
+  var badges=ALL.filter(function(s){return prog(h,s).safety;}).length;
+  var payload={type:"CareCorpsReport",version:3,hero:{name:h.name,emoji:h.emoji,color:h.color,id:h.id},
+    generatedAt:new Date().toISOString(),
+    summary:{cityPct:heroCityPct(h),mastered:mastered,legends:legends,safetyBadges:badges,totalSkills:ALL.length},
+    skills:skills};
+  var sig=signPayload(payload);
+  return {payload:payload,verifyCode:sig.slice(0,6).toUpperCase(),signature:sig};
+}
+function openReport(){
+  var h=activeHero();var rep=buildReport(h);lastReport=rep;
+  var s=rep.payload.summary;
+  document.getElementById("reportBody").innerHTML=
+    '<div class="detail dhead"><div class="dem">📤</div><div><div class="mission-title" style="color:var(--navy)">SEND MY PROGRESS</div>'+
+    '<div class="dpow">for '+escapeHtml(h.name)+' '+h.emoji+'</div></div></div>'+
+    '<div class="callout" style="margin-top:12px"><b>Here\'s what you\'ll send to your teacher:</b><br>'+
+    '🏙️ City Saved: <b>'+s.cityPct+'%</b> &nbsp; 🦸 Skills mastered: <b>'+s.mastered+'/'+s.totalSkills+'</b> &nbsp; ⭐ Legends: <b>'+s.legends+'</b> &nbsp; 🛡️ Safety badges: <b>'+s.safetyBadges+'</b></div>'+
+    '<div class="report-box"><p style="font-weight:800;margin:.2em 0">1️⃣ Tap the big button to save your progress file:</p>'+
+    '<div style="text-align:center;margin:10px 0"><button class="btn green big" onclick="downloadReport()">💾 Save My Progress File</button></div>'+
+    '<p style="font-weight:800;margin:.6em 0 .2em">2️⃣ Send that file to your teacher (or drop it where she asks).</p>'+
+    '<p style="font-weight:800;margin:.6em 0 .2em">3️⃣ Your secret verify code (the teacher checks this):</p>'+
+    '<div style="text-align:center;margin:8px 0"><span class="vcode">'+rep.verifyCode+'</span></div>'+
+    '<p style="font-size:13px;color:#6b5a3a;font-weight:700">🔒 This file is signed. If anyone changes the numbers inside it, the teacher\'s dashboard will know. No fibbing your stars! 😉</p></div>';
+  show("screen-report");
+}
+var lastReport=null;
+function downloadReport(){
+  var h=activeHero();var rep=lastReport||buildReport(h);
+  var file={report:rep.payload,verifyCode:rep.verifyCode,signature:rep.signature};
+  var blob=new Blob([JSON.stringify(file,null,2)],{type:"application/json"});
+  var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  var d=new Date();var safeName=h.name.replace(/[^a-z0-9]/gi,"_");
+  a.download="CareCorps_PROGRESS_"+safeName+"_"+d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+".json";a.click();
+  fxBurst("SENT!","Progress saved! 📤");
+}
+function fxBurst(pow,sub){var l=document.getElementById("fxLayer");var f=document.createElement("div");f.className="fx";
+  f.innerHTML='<div class="fx-lines"></div><div style="text-align:center"><div class="pow">'+pow+'</div><div class="sub">'+escapeHtml(sub||"")+'</div></div>';
+  l.appendChild(f);playPow();setTimeout(function(){l.removeChild(f);},1300);}
+function stamp(txt){var s=document.createElement("div");s.className="stamp";s.textContent=txt;document.getElementById("fxLayer").appendChild(s);playStamp();
+  setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},1200);}
+var POWS=["POW!","BAM!","ZAP!","KAPOW!","WHAM!","BOOM!","SOCK!","ZOWIE!"];
+function randPow(){return POWS[Math.floor(Math.random()*POWS.length)];}
+function randOf(a){return a[Math.floor(Math.random()*a.length)];}
+var actx=null;function ac(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}return actx;}
+function tone(freq,dur,type,vol,when){if(!state.sound)return;var c=ac();if(!c)return;var t=c.currentTime+(when||0);
+  var o=c.createOscillator(),g=c.createGain();o.type=type||"square";o.frequency.setValueAtTime(freq,t);
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol||0.2,t+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+dur+0.02);}
+function playPow(){tone(180,.18,"square",.25,0);tone(90,.28,"sawtooth",.2,.02);}
+function playStamp(){tone(70,.22,"square",.3,0);}
+function playHitSound(){tone(440,.08,"square",.2,0);tone(660,.1,"square",.2,.06);}
+function playMissSound(){tone(160,.14,"sawtooth",.18,0);}
+function playCoachSound(){tone(520,.08,"sine",.15,0);}
+function playRankSound(lvl){if(lvl===1){tone(523,.12,"square",.2,0);}
+  else if(lvl===2){tone(523,.1,"square",.2,0);tone(659,.12,"square",.2,.1);}
+  else if(lvl===3){tone(523,.1,"square",.22,0);tone(659,.1,"square",.22,.1);tone(784,.18,"square",.24,.2);}
+  else{tone(659,.1,"square",.22,0);tone(784,.1,"square",.22,.1);tone(988,.1,"square",.22,.2);tone(1319,.22,"square",.24,.3);}}
+function toggleSound(){state.sound=!state.sound;save();document.getElementById("sndBtn").textContent=state.sound?"🔊 Sound On":"🔇 Sound Off";if(state.sound){ac();tone(660,.1,"square",.2,0);}}
+function exportData(){var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  var d=new Date();a.download="CareCorps_backup_"+d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+".json";a.click();}
+function importData(ev){var f=ev.target.files[0];if(!f)return;var r=new FileReader();
+  r.onload=function(){try{var s=JSON.parse(r.result);if(!s.heroes)throw 0;if(!confirm("Load "+s.heroes.length+" hero(es)? This replaces heroes on this device."))return;
+    state=s;if(state.sound===undefined)state.sound=true;state.activeId=null;save();show("screen-select");alert("Backup loaded! "+s.heroes.length+" hero(es) restored. 🚀");}
+    catch(e){alert("Sorry, that file couldn't be read as a Care Corps backup.");}ev.target.value="";};r.readAsText(f);}
+function pad(n){return (n<10?"0":"")+n;}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function tint(hex,amt){var c=hex.replace("#","");if(c.length===3){c=c[0]+c[0]+c[1]+c[1]+c[2]+c[2];}var r=parseInt(c.substr(0,2),16),g=parseInt(c.substr(2,2),16),b=parseInt(c.substr(4,2),16);
+  r=Math.round(r+(255-r)*amt);g=Math.round(g+(255-g)*amt);b=Math.round(b+(255-b)*amt);return "rgb("+r+","+g+","+b+")";}
+load();
+show("screen-intro");
+
+</script>
+</body>
+</html>
